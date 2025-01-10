@@ -1,0 +1,11 @@
+# Ignorer la base de données
+IAFetL.db
+Dockerfile
+docker-compose.yml
+
+
+# Ignorer d'autres fichiers/dossiers
+__pycache__/
+*.pyc
+.vscode/
+.env
