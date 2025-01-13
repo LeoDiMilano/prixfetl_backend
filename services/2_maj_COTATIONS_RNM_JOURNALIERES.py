@@ -58,12 +58,12 @@ class CotationRnmScraper:
         service = Service(self.driver_path)
         self.browser = webdriver.Chrome(service=service, options=chrome_options)
 
-    def get_last_date_in_db(self):
+    def get_last_date_in_db_for_product(self, product: str):
         """
-        Se connecte à la base de données,
-        retourne la dernière date (colonne DATE)
-        de la table COTATIONS_RNM_JOURNALIERES
-        sous forme d'objet datetime, ou None si la table est vide.
+        Retourne la dernière date_interrogation (YYYY-MM-DD)
+        pour la table COTATIONS_RNM_JOURNALIERES
+        en filtrant sur LIBELLE_PRODUIT LIKE 'PRODUIT%',
+        ou None si aucune date n'est trouvée.
         """
         if not os.path.exists(self.db_path):
             raise FileNotFoundError(f"Base de données introuvable : {self.db_path}")
@@ -71,16 +71,24 @@ class CotationRnmScraper:
         try:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
-            query = "SELECT MAX(DATE) FROM COTATIONS_RNM_JOURNALIERES"
-            cursor.execute(query)
+            # On force le produit en majuscules et on ajoute le wildcard '%'
+            sql_query = """
+                SELECT MAX(DATE_INTERROGATION)
+                FROM COTATIONS_RNM_JOURNALIERES
+                WHERE LIBELLE_PRODUIT LIKE ?
+            """
+            # On suppose que dans la base, LIBELLE_PRODUIT est stocké en majuscule.
+            # Par sécurité, on force la majuscule côté Python aussi.
+            like_value = product.upper() + '%'
+            cursor.execute(sql_query, (like_value,))
             result = cursor.fetchone()
             conn.close()
 
             if result and result[0]:
-                # result[0] est probablement au format 'YYYY-MM-DD'
+                # result[0] est du style 'YYYY-MM-DD'
                 return datetime.strptime(result[0], '%Y-%m-%d')
             else:
-                return None  # table vide
+                return None
 
         except sqlite3.Error as e:
             raise sqlite3.Error(f"Erreur lors de l'accès à la base de données : {e}")
@@ -184,45 +192,28 @@ class CotationRnmScraper:
         except sqlite3.Error as e:
             raise sqlite3.Error(f"Erreur d'insertion dans la BDD : {e}")
 
-    def run_update(self):
+    def scrape_and_insert_product_data(self, product: str, start_date: datetime, end_date: datetime):
         """
-        1) Récupère la dernière date de la table,
-        2) Parcourt les dates manquantes (jusqu'à aujourd'hui),
-        3) Scrape le site rnm.franceagrimer.fr,
-        4) Convertit, insère en BDD,
-        5) Ferme le webdriver (et affiche le contenu de la table en debug).
+        Accède au site FranceAgriMer, saisit le 'product' donné,
+        puis boucle sur la période [start_date, end_date],
+        télécharge le .slk, le convertit, insère dans la BDD...
         """
-        # 1) Dernière date en base
-        last_date_in_db = self.get_last_date_in_db()
-        if last_date_in_db:
-            start_date = last_date_in_db + timedelta(days=1)
-        else:
-            # S’il n’y a aucune date en base, on commence au 2023-08-01
-            start_date = datetime(2023, 8, 1)
-
-        end_date = datetime.today()
-        if start_date > end_date:
-            print("Aucune mise à jour n'est nécessaire. La base est déjà à jour.")
-            self.browser.quit()
-            return
-
-        # 2) Accéder au site web
-        self.browser.get('https://rnm.franceagrimer.fr/prix')
-
         wait = WebDriverWait(self.browser, 20)
 
-        # 3) Saisir "pomme" dans le champ "produit" et appuyer sur Entrée
+        # Recharger / rafraîchir la page pour chaque produit
+        self.browser.get('https://rnm.franceagrimer.fr/prix')
+
+        # Saisir le produit
         try:
             produit_field = wait.until(EC.presence_of_element_located((By.ID, "produit")))
             produit_field.clear()
-            produit_field.send_keys("pomme")
+            produit_field.send_keys(product)
             produit_field.send_keys(Keys.ENTER)
         except TimeoutException:
-            print("Champ produit non trouvé lors de l'ouverture du site.")
-            self.browser.quit()
+            print(f"Champ produit non trouvé lors de l'ouverture du site pour {product}.")
             return
 
-        # 4) Boucle sur les dates souhaitées
+        # Boucle sur les dates
         dates = pd.date_range(start=start_date, end=end_date)
         for date in dates:
             formatted_date = date.strftime('%d%m%y')
@@ -234,7 +225,7 @@ class CotationRnmScraper:
                 date_field.clear()
                 date_field.send_keys(formatted_date)
             except TimeoutException:
-                print(f"Élément de date non trouvé pour : {formatted_date}")
+                print(f"Élément de date non trouvé pour : {formatted_date} | Produit : {product}")
                 continue
 
             # Cliquer sur OK
@@ -242,7 +233,7 @@ class CotationRnmScraper:
                 ok_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@value='OK']")))
                 ok_button.click()
             except TimeoutException:
-                print(f"Bouton OK non trouvé pour : {formatted_date}")
+                print(f"Bouton OK non trouvé pour : {formatted_date} | Produit : {product}")
                 continue
 
             # Cliquer sur "Voir dans un tableur"
@@ -252,13 +243,13 @@ class CotationRnmScraper:
                 )
                 tableur_link.click()
             except TimeoutException:
-                print(f"Lien tableur non trouvé pour : {formatted_date}")
+                print(f"Lien tableur non trouvé pour : {formatted_date} | Produit : {product}")
                 continue
 
             # Attendre le téléchargement du fichier
-            time.sleep(5)  # Ajuster ce délai si nécessaire
+            time.sleep(5)  # Ajuste si nécessaire
 
-            # Rechercher le fichier .slk
+            # Conversion slk -> csv + insertion BDD
             downloaded_file = None
             for file in os.listdir(os.getcwd()):
                 if file.endswith(".slk"):
@@ -266,27 +257,50 @@ class CotationRnmScraper:
                     break
 
             if downloaded_file:
-                # Conversion slk -> csv
                 csv_file = downloaded_file.replace('.slk', '.csv')
                 CotationRnmScraper.slk_to_csv(downloaded_file, csv_file)
 
-                # Lire le CSV en DataFrame, en ignorant les 4 premières lignes
                 data_df = pd.read_csv(csv_file, skiprows=3, encoding='ISO-8859-1')
-                # On ne garde que les lignes dont la 6ème colonne n’est pas vide
                 data_df = data_df[data_df.iloc[:, 5].notna()]
 
-                # Insert DB
                 self.insert_data(date_interrogation, data_df)
 
-                # Supprimer les fichiers téléchargés
                 os.remove(downloaded_file)
                 os.remove(csv_file)
 
-        # Fermer le navigateur
-        self.browser.quit()
 
-        # (Optionnel) Afficher le contenu de la table pour vérif
+    def run_update(self, products=None):
+        """
+        Pour chaque produit de la liste 'products',
+        on cherche la dernière date en base où LIBELLE_PRODUIT LIKE product.upper()+'%',
+        puis on scrape et insère les données à partir de cette date +1 jusqu'à aujourd'hui.
+        """
+        if products is None:
+            products = ["pomme", "banane", "orange"]  # Ex. valeurs par défaut
+
+        for product in products:
+            print(f"\n=== Traitement du produit: {product} ===")
+            last_date_for_prod = self.get_last_date_in_db_for_product(product)
+
+            if last_date_for_prod:
+                start_date = last_date_for_prod + timedelta(days=1)
+            else:
+                # Si aucune date en base pour ce produit, on choisit une date de départ par défaut
+                start_date = datetime(2023, 8, 1)
+
+            end_date = datetime.today()
+            if start_date > end_date:
+                print(f"Aucune mise à jour nécessaire pour {product} (déjà à jour).")
+                continue
+
+            # Scraper et insérer pour ce produit (cf. méthode qu’on peut isoler)
+            self.scrape_and_insert_product_data(product, start_date, end_date)
+
+        # Une fois terminé pour tous les produits, on ferme le navigateur
+        self.browser.quit()
+        # (optionnel) affichage debug
         self._debug_afficher_contenu_table()
+
 
     def _debug_afficher_contenu_table(self):
         """
@@ -310,9 +324,13 @@ class CotationRnmScraper:
 # Point d’entrée principal (si on exécute directement ce script)
 # ------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Adapte les chemins selon ta configuration
     DB_PATH = "/app/data/IAFetL.db"
-    DRIVER_PATH = "/home/IAFetL/driver/chromedriver/chromedriver"
+    DRIVER_PATH = "/app/driver/chromedriver/chromedriver"
 
+    # Créer l’instance de scraper
     scraper = CotationRnmScraper(DB_PATH, DRIVER_PATH)
-    scraper.run_update()
+
+    # Passer la liste de produits à run_update
+    PRODUCTS = ["pomme", "banane", "orange"]
+    scraper.run_update(products=PRODUCTS)
+
