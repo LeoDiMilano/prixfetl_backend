@@ -74,7 +74,7 @@ def get_meteo_data(id_station, date_debut, date_fin, cle_api):
         return None
 
     # Attendre 1 seconde pour que la commande soit prête
-    time.sleep(1)
+    time.sleep(2)
 
     # 2) Récupérer les résultats
     url_resultat = f"https://public-api.meteofrance.fr/public/DPClim/v1/commande/fichier?id-cmde={id_commande}"
@@ -97,10 +97,17 @@ def insert_meteo_data_ville(db_path, id_station, annee, direction, cle_api):
     """
     date_debut = f'{annee}-01-01'
     date_fin = f'{annee}-12-31'
-    # Si date_fin > aujourd'hui, tronquer à hier
-    if pd.to_datetime(date_fin) > pd.to_datetime('today'):
-        date_fin = (pd.to_datetime('today') - pd.DateOffset(days=1)).strftime('%Y-%m-%d')
-    
+    # Vérifier l'heure actuelle
+    current_time = datetime.utcnow()
+    if current_time.hour > 11 or (current_time.hour == 11 and current_time.minute >= 30):
+        # Si l'heure actuelle est après 11h30 UTC
+        if pd.to_datetime(date_fin) >= pd.to_datetime('today'):
+            date_fin = (pd.to_datetime('today') - pd.DateOffset(days=1)).strftime('%Y-%m-%d')
+    else:
+        # Si l'heure actuelle est avant 11h30 UTC
+        if pd.to_datetime(date_fin) >= (pd.to_datetime('today') - pd.DateOffset(days=1)):
+            date_fin = (pd.to_datetime('today') - pd.DateOffset(days=2)).strftime('%Y-%m-%d')
+
     data_csv = get_meteo_data(id_station, date_debut, date_fin, cle_api)
     if data_csv is None:
         print(f"Erreur lors de la récupération des données météo (station {id_station}, année {annee}).")
@@ -224,4 +231,4 @@ if __name__ == "__main__":
     API_KEY = "eyJ4NXQiOiJZV0kxTTJZNE1qWTNOemsyTkRZeU5XTTRPV014TXpjek1UVmhNbU14T1RSa09ETXlOVEE0Tnc9PSIsImtpZCI6ImdhdGV3YXlfY2VydGlmaWNhdGVfYWxpYXMiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJMR0FMTE9ORUBjYXJib24uc3VwZXIiLCJhcHBsaWNhdGlvbiI6eyJvd25lciI6IkxHQUxMT05FIiwidGllclF1b3RhVHlwZSI6bnVsbCwidGllciI6IlVubGltaXRlZCIsIm5hbWUiOiJEZWZhdWx0QXBwbGljYXRpb24iLCJpZCI6MTk3OTgsInV1aWQiOiJhM2YzNjU2NS03M2NmLTRkYzUtYmE0MS0zZDM4ZjllYWFjNGIifSwiaXNzIjoiaHR0cHM6XC9cL3BvcnRhaWwtYXBpLm1ldGVvZnJhbmNlLmZyOjQ0M1wvb2F1dGgyXC90b2tlbiIsInRpZXJJbmZvIjp7IjUwUGVyTWluIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiQVJPTUUiLCJjb250ZXh0IjoiXC9wdWJsaWNcL2Fyb21lXC8xLjAiLCJwdWJsaXNoZXIiOiJhZG1pbl9tZiIsInZlcnNpb24iOiIxLjAiLCJzdWJzY3JpcHRpb25UaWVyIjoiNTBQZXJNaW4ifSx7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiQVJQRUdFIiwiY29udGV4dCI6IlwvcHVibGljXC9hcnBlZ2VcLzEuMCIsInB1Ymxpc2hlciI6ImFkbWluX21mIiwidmVyc2lvbiI6IjEuMCIsInN1YnNjcmlwdGlvblRpZXIiOiI1MFBlck1pbiJ9LHsic3Vic2NyaWJlclRlbmFudERvbWFpbiI6ImNhcmJvbi5zdXBlciIsIm5hbWUiOiJEb25uZWVzUHVibGlxdWVzQ2xpbWF0b2xvZ2llIiwiY29udGV4dCI6IlwvcHVibGljXC9EUENsaW1cL3YxIiwicHVibGlzaGVyIjoiYWRtaW5fbWYiLCJ2ZXJzaW9uIjoidjEiLCJzdWJzY3JpcHRpb25UaWVyIjoiNTBQZXJNaW4ifSx7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiRG9ubmVlc1B1YmxpcXVlc1BhcXVldE9ic2VydmF0aW9uIiwiY29udGV4dCI6IlwvcHVibGljXC9EUFBhcXVldE9ic1wvdjEiLCJwdWJsaXNoZXIiOiJiYXN0aWVuZyIsInZlcnNpb24iOiJ2MSIsInN1YnNjcmlwdGlvblRpZXIiOiI1MFBlck1pbiJ9LHsic3Vic2NyaWJlclRlbmFudERvbWFpbiI6ImNhcmJvbi5zdXBlciIsIm5hbWUiOiJQYXF1ZXRBUk9NRSIsImNvbnRleHQiOiJcL3ByZXZpbnVtXC9EUFBhcXVldEFST01FXC92MSIsInB1Ymxpc2hlciI6ImZyaXNib3VyZyIsInZlcnNpb24iOiJ2MSIsInN1YnNjcmlwdGlvblRpZXIiOiI1MFBlck1pbiJ9LHsic3Vic2NyaWJlclRlbmFudERvbWFpbiI6ImNhcmJvbi5zdXBlciIsIm5hbWUiOiJEb25uZWVzUHVibGlxdWVzT2JzZXJ2YXRpb24iLCJjb250ZXh0IjoiXC9wdWJsaWNcL0RQT2JzXC92MSIsInB1Ymxpc2hlciI6ImJhc3RpZW5nIiwidmVyc2lvbiI6InYxIiwic3Vic2NyaXB0aW9uVGllciI6IjUwUGVyTWluIn1dLCJleHAiOjE3NTIzMDk4NTYsInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3MzY3NTc4NTYsImp0aSI6IjQzYjRmNDA1LTA0MzUtNDM1Ny05OGE3LTEyMjIwNzczMDgzMSJ9.HOUsAR5neX0SHyul5OTgxbnor9BAfVrSLHTRMEvJLFhHdhjGcGJ4cN65_Qvpsrr3_ePzT7E9qcTTt9vLV1bMjSJ7UNNEgRTj3JlWShSHG7YrmvlHhqeLRWbOH8_99V_6nuwGQtMcTkZ9kyBuiKPrIR-JcjHlFFNkB6mYCx2Eq8W3evSTCTuckR76wRMaK4UsiWKpZts37nApwzoS7Lnm-ALezKcGO2C7yQqKBmySwP0hI0X9gyFIPEIDlWJdb8xzCBWJRUmlIY7Asq8_2Effq3GWbm2ptTae5nSbTqKInWGqPCzBR5AFjdoe8r6VI7MSYoGPsj8kal2pOQWpbakMkA=="
 
     # Exemple : mettre à jour toutes les données de l'année 2024 pour NE/SE/SO/NO
-    maj_meteo_data_ville(DB_PATH, 2024, API_KEY)
+    maj_meteo_data_ville(DB_PATH, 2025, API_KEY)
