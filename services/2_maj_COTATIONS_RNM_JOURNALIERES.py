@@ -48,15 +48,59 @@ class CotationRnmScraper:
             "safebrowsing.enabled": True
         })
 
+        # Options de stabilité
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--headless=new")  # Mode headless nouvelle génération
-        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-background-networking")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-sync")
+        chrome_options.add_argument("--disable-translate")
+        chrome_options.add_argument("--disable-gpu")  # Désactiver le GPU pour headless
         chrome_options.add_argument("--disable-software-rasterizer")
-        chrome_options.add_argument("--window-size=1920x1080")
+        chrome_options.add_argument("--disable-crash-reporter")
+        chrome_options.add_argument("--disable-logging")
+        chrome_options.add_argument("--disable-infobars")
+        chrome_options.add_argument("--disable-dev-tools")
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        chrome_options.add_argument("--headless")  # Si problème, teste sans le mode headless
+        chrome_options.add_argument("--window-size=1920x1080")  # Taille par défaut pour éviter les problèmes
 
         service = Service(self.driver_path)
         self.browser = webdriver.Chrome(service=service, options=chrome_options)
+        def get_last_date_in_db_for_product(self, product: str):
+            """
+            Retourne la dernière date_interrogation (YYYY-MM-DD)
+            pour la table COTATIONS_RNM_JOURNALIERES
+            en filtrant sur LIBELLE_PRODUIT LIKE 'PRODUIT%',
+            ou None si aucune date n'est trouvée.
+            """
+            if not os.path.exists(self.db_path):
+                raise FileNotFoundError(f"Base de données introuvable : {self.db_path}")
+
+            try:
+                conn = sqlite3.connect(self.db_path)
+                cursor = conn.cursor()
+                # On force le produit en majuscules et on ajoute le wildcard '%'
+                sql_query = """
+                    SELECT MAX(DATE_INTERROGATION)
+                    FROM COTATIONS_RNM_JOURNALIERES
+                    WHERE LIBELLE_PRODUIT LIKE ?
+                """
+                # On suppose que dans la base, LIBELLE_PRODUIT est stocké en majuscule.
+                # Par sécurité, on force la majuscule côté Python aussi.
+                like_value = product.upper() + '%'
+                cursor.execute(sql_query, (like_value,))
+                result = cursor.fetchone()
+                conn.close()
+
+                if result and result[0]:
+                    # result[0] est du style 'YYYY-MM-DD'
+                    return datetime.strptime(result[0], '%Y-%m-%d')
+                else:
+                    return None
+
+            except sqlite3.Error as e:
+                raise sqlite3.Error(f"Erreur lors de l'accès à la base de données : {e}")
 
     def get_last_date_in_db_for_product(self, product: str):
         """
@@ -77,8 +121,6 @@ class CotationRnmScraper:
                 FROM COTATIONS_RNM_JOURNALIERES
                 WHERE LIBELLE_PRODUIT LIKE ?
             """
-            # On suppose que dans la base, LIBELLE_PRODUIT est stocké en majuscule.
-            # Par sécurité, on force la majuscule côté Python aussi.
             like_value = product.upper() + '%'
             cursor.execute(sql_query, (like_value,))
             result = cursor.fetchone()
@@ -92,6 +134,7 @@ class CotationRnmScraper:
 
         except sqlite3.Error as e:
             raise sqlite3.Error(f"Erreur lors de l'accès à la base de données : {e}")
+
 
     @staticmethod
     def slk_to_csv(slk_filename, csv_filename):
@@ -183,8 +226,9 @@ class CotationRnmScraper:
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ''', (
                         date_interrogation,
-                        row[0], row[1], row[2], row[3],
-                        row[4], row[5], row[6], row[7], row[8]
+                        row.iloc[0], row.iloc[1], row.iloc[2], row.iloc[3],
+                        row.iloc[4], row.iloc[5], row.iloc[6], row.iloc[7], row.iloc[8]
+
                     ))
             conn.commit()
             conn.close()
@@ -196,77 +240,82 @@ class CotationRnmScraper:
         """
         Accède au site FranceAgriMer, saisit le 'product' donné,
         puis boucle sur la période [start_date, end_date],
-        télécharge le .slk, le convertit, insère dans la BDD...
+        télécharge le .slk, le convertit, insère dans la BDD.
         """
-        wait = WebDriverWait(self.browser, 20)
-
-        # Recharger / rafraîchir la page pour chaque produit
-        self.browser.get('https://rnm.franceagrimer.fr/prix')
-
-        # Saisir le produit
         try:
-            produit_field = wait.until(EC.presence_of_element_located((By.ID, "produit")))
-            produit_field.clear()
-            produit_field.send_keys(product)
-            produit_field.send_keys(Keys.ENTER)
-        except TimeoutException:
-            print(f"Champ produit non trouvé lors de l'ouverture du site pour {product}.")
-            return
+            wait = WebDriverWait(self.browser, 20)
 
-        # Boucle sur les dates
-        dates = pd.date_range(start=start_date, end=end_date)
-        for date in dates:
-            formatted_date = date.strftime('%d%m%y')
-            date_interrogation = date.strftime('%Y-%m-%d')
+            # Recharger la page pour le produit
+            print(f"[INFO] Accès au site pour le produit : {product}")
+            self.browser.get('https://rnm.franceagrimer.fr/prix')
 
-            # Saisir la date
+            # Saisir le produit
             try:
-                date_field = wait.until(EC.presence_of_element_located((By.ID, "val1")))
-                date_field.clear()
-                date_field.send_keys(formatted_date)
+                produit_field = wait.until(EC.presence_of_element_located((By.ID, "produit")))
+                produit_field.clear()
+                produit_field.send_keys(product)
+                produit_field.send_keys(Keys.ENTER)
             except TimeoutException:
-                print(f"Élément de date non trouvé pour : {formatted_date} | Produit : {product}")
-                continue
+                print(f"[ERREUR] Champ produit non trouvé pour {product}.")
+                return
 
-            # Cliquer sur OK
-            try:
-                ok_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@value='OK']")))
-                ok_button.click()
-            except TimeoutException:
-                print(f"Bouton OK non trouvé pour : {formatted_date} | Produit : {product}")
-                continue
+            # Boucle sur les dates
+            dates = pd.date_range(start=start_date, end=end_date)
+            for date in dates:
+                formatted_date = date.strftime('%d%m%y')
+                date_interrogation = date.strftime('%Y-%m-%d')
 
-            # Cliquer sur "Voir dans un tableur"
-            try:
-                tableur_link = wait.until(EC.element_to_be_clickable(
-                    (By.XPATH, "//a[@class='droit' and contains(@onclick, 'tab')]/img[@alt='lien']"))
-                )
-                tableur_link.click()
-            except TimeoutException:
-                print(f"Lien tableur non trouvé pour : {formatted_date} | Produit : {product}")
-                continue
+                try:
+                    # Saisir la date
+                    date_field = wait.until(EC.presence_of_element_located((By.ID, "val1")))
+                    date_field.clear()
+                    date_field.send_keys(formatted_date)
 
-            # Attendre le téléchargement du fichier
-            time.sleep(5)  # Ajuste si nécessaire
+                    # Cliquer sur OK
+                    ok_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@value='OK']")))
+                    ok_button.click()
 
-            # Conversion slk -> csv + insertion BDD
-            downloaded_file = None
-            for file in os.listdir(os.getcwd()):
-                if file.endswith(".slk"):
-                    downloaded_file = file
-                    break
+                    # Cliquer sur "Voir dans un tableur"
+                    tableur_link = wait.until(EC.element_to_be_clickable(
+                        (By.XPATH, "//a[@class='droit' and contains(@onclick, 'tab')]/img[@alt='lien']"))
+                    )
+                    tableur_link.click()
 
-            if downloaded_file:
-                csv_file = downloaded_file.replace('.slk', '.csv')
-                CotationRnmScraper.slk_to_csv(downloaded_file, csv_file)
+                    # Attendre le téléchargement du fichier
+                    time.sleep(5)
 
-                data_df = pd.read_csv(csv_file, skiprows=3, encoding='ISO-8859-1')
-                data_df = data_df[data_df.iloc[:, 5].notna()]
+                    # Conversion slk -> csv + insertion dans la BDD
+                    downloaded_file = None
+                    for file in os.listdir(os.getcwd()):
+                        if file.endswith(".slk"):
+                            downloaded_file = file
+                            break
 
-                self.insert_data(date_interrogation, data_df)
+                    if downloaded_file:
+                        csv_file = downloaded_file.replace('.slk', '.csv')
+                        CotationRnmScraper.slk_to_csv(downloaded_file, csv_file)
 
-                os.remove(downloaded_file)
-                os.remove(csv_file)
+                        # Charger et insérer les données
+                        data_df = pd.read_csv(csv_file, skiprows=3, encoding='ISO-8859-1')
+                        data_df = data_df[data_df.iloc[:, 5].notna()]
+                        self.insert_data(date_interrogation, data_df)
+
+                        # Supprimer les fichiers temporaires
+                        os.remove(downloaded_file)
+                        os.remove(csv_file)
+
+                except TimeoutException:
+                    print(f"[ERREUR] Échec du traitement pour {date_interrogation} | Produit : {product}")
+                    continue
+
+        except Exception as e:
+            print(f"[ERREUR] Problème lors du traitement du produit {product}: {e}")
+
+        finally:
+            # Relancer le navigateur si nécessaire
+            if not self.browser.service.is_connectable():
+                print("[INFO] Redémarrage du navigateur.")
+                self.init_driver()
 
 
     def run_update(self, products=None):
@@ -332,5 +381,13 @@ if __name__ == "__main__":
 
     # Passer la liste de produits à run_update
     PRODUCTS = ["pomme", "banane", "orange"]
-    scraper.run_update(products=PRODUCTS)
+    try:
+        scraper.run_update(products=PRODUCTS)
+    except Exception as e:
+        print(f"[ERREUR] Une erreur est survenue : {e}")
+    finally:
+        # Assure-toi que le navigateur est fermé même en cas d'erreur
+        if scraper.browser:
+            scraper.browser.quit()
+
 
