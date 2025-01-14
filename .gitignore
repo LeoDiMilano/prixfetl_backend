@@ -2,7 +2,7 @@
 IAFetL.db
 Dockerfile
 docker-compose.yml
-
+google-chrome-stable_current_amd64.deb
 
 # Ignorer d'autres fichiers/dossiers
 __pycache__/
