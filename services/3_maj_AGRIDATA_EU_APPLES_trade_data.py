@@ -117,6 +117,14 @@ class AgridataApplesTradeScraper:
                     EC.element_to_be_clickable((By.XPATH, "//button[@title='Bulk download ALL data']"))
                 )
                 print("[INFO] Clique sur 'Bulk Download ALL data'...")
+
+                # Vérifier et supprimer le fichier existant
+                download_dir = "/app/data/raw"
+                existing_file = os.path.join(download_dir, "EU_APPLES_trade_data_en.csv")  # Nom du fichier à vérifier
+                if os.path.exists(existing_file):
+                    print(f"[INFO] Suppression du fichier existant : {existing_file}")
+                    os.remove(existing_file)
+
                 bulk_btn.click()
             except TimeoutException:
                 print("[ERREUR] Impossible de cliquer sur 'Bulk download ALL data'.")

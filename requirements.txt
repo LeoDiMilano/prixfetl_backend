@@ -104,3 +104,4 @@ webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.13
 wsproto==1.2.0
+psycopg2>=2.9.6,<3.0
