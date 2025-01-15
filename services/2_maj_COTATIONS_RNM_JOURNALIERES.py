@@ -130,7 +130,8 @@ class CotationRnmScraper:
                 # result[0] est du style 'YYYY-MM-DD'
                 return datetime.strptime(result[0], '%Y-%m-%d')
             else:
-                return None
+                # Si aucune date trouvée, retourner le 1er août 2018
+                return datetime.strptime('2018-08-01', '%Y-%m-%d')
 
         except sqlite3.Error as e:
             raise sqlite3.Error(f"Erreur lors de l'accès à la base de données : {e}")
@@ -261,7 +262,8 @@ class CotationRnmScraper:
 
             # Boucle sur les dates
             dates = pd.date_range(start=start_date, end=end_date)
-            for date in dates:
+            mondays = [date for date in dates if date.weekday() == 0]  # Filtrer uniquement les lundis
+            for date in mondays:
                 formatted_date = date.strftime('%d%m%y')
                 date_interrogation = date.strftime('%Y-%m-%d')
 
@@ -380,7 +382,7 @@ if __name__ == "__main__":
     scraper = CotationRnmScraper(DB_PATH, DRIVER_PATH)
 
     # Passer la liste de produits à run_update
-    PRODUCTS = ["pomme", "banane", "orange"]
+    PRODUCTS = ["pomme", "banane", "orange", "clémentine", "kiwi", "pêche", "nectarine"]
     try:
         scraper.run_update(products=PRODUCTS)
     except Exception as e:

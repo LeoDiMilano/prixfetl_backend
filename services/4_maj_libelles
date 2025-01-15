@@ -1,0 +1,146 @@
+import sqlite3
+import re
+import pandas as pd
+
+
+class P_M_S_Updater:
+    def __init__(self, db_path):
+        self.db_path = db_path
+
+    @staticmethod
+    def extraire_calibre(libelle):
+        # Recherche à partir de la fin de la chaîne
+        for sep in ['-', '/', '+']:
+            pos_sep = libelle.rfind(sep)
+            while pos_sep != -1:
+                # Vérifier si un chiffre se trouve immédiatement avant ou après le séparateur
+                if (pos_sep > 0 and libelle[pos_sep - 1].isdigit()) or \
+                   (pos_sep < len(libelle) - 1 and libelle[pos_sep + 1].isdigit()):
+                    # Trouver les espaces les plus proches avant et après
+                    pos_before = libelle.rfind(' ', 0, pos_sep)
+                    pos_after = libelle.find(' ', pos_sep)
+                    if pos_before != -1 and pos_after != -1:
+                        return libelle[pos_before + 1:pos_after].strip()
+                    elif pos_before != -1:  # Si aucun espace après, prendre jusqu'à la fin
+                        return libelle[pos_before + 1:].strip()
+                    elif pos_after != -1:  # Si aucun espace avant, prendre depuis le début
+                        return libelle[:pos_after].strip()
+                # Continuer la recherche pour le même séparateur, en remontant
+                pos_sep = libelle.rfind(sep, 0, pos_sep)
+        return ''
+
+    @staticmethod
+    def extraire_espece(libelle):
+        return libelle.split(' ')[0] if libelle else ''
+
+    @staticmethod
+    def extraire_variete(libelle):
+        mots = libelle.split(' ')
+        return mots[1].upper() if len(mots) > 1 else ''
+
+    @staticmethod
+    def extraire_emballage(libelle, calibre):
+        if calibre:
+            idx = libelle.find(calibre) + len(calibre)
+            return libelle[idx:].strip()
+        return ''
+
+    @staticmethod
+    def extraire_origine(libelle):
+        if any(kw in libelle for kw in ['France', 'Martinique', 'Guadeloupe', 'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie']):
+            return 'FRANCE'
+        if 'Afrique' in libelle:
+            return 'AFRIQUE'
+        if 'Espagne' in libelle:
+            return 'ESPAGNE'
+        if 'Maroc' in libelle:
+            return 'MAROC'
+        if 'Portugal' in libelle:
+            return 'PORTUGAL'
+        if 'Amérique' in libelle:
+            return 'AMERIQUE'
+        if 'Allemagne' in libelle:
+            return 'ALLEMAGNE'
+        if 'Italie' in libelle:
+            return 'ITALIE'
+        if 'U.E.' in libelle:
+            return 'UE'
+        if 'hors Fr.' in libelle:
+            return 'HORS FR'
+        return ''
+
+    def ajouter_et_mettre_a_jour(self):
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+
+            # Ajouter les valeurs manquantes dans PRODUIT_MARCHE_STADE
+            cursor.execute("""
+                INSERT OR IGNORE INTO PRODUIT_MARCHE_STADE (MARCHE, STADE, LIBELLE_PRODUIT)
+                SELECT DISTINCT MARCHE, STADE, LIBELLE_PRODUIT
+                FROM COTATIONS_RNM_JOURNALIERES
+            """)
+
+            # Récupération des lignes avec des colonnes vides ou nulles dans PRODUIT_MARCHE_STADE
+            cursor.execute("""
+                SELECT MARCHE, STADE, LIBELLE_PRODUIT, ESPECE, VARIETE, CALIBRE, EMBALLAGE, ORIGINE
+                FROM PRODUIT_MARCHE_STADE
+            """)
+            lignes = cursor.fetchall()
+
+            for row in lignes:
+                marche, stade, libelle, espece, variete, calibre, emballage, origine = row
+
+                if libelle:
+                    # Mise à jour des champs
+                    nouveau_espece = self.extraire_espece(libelle) if not espece else espece
+                    nouvelle_variete = self.extraire_variete(libelle) if not variete else variete
+                    nouveau_calibre = self.extraire_calibre(libelle) if not calibre else calibre
+                    nouvel_emballage = self.extraire_emballage(libelle, nouveau_calibre) if nouveau_calibre else ''
+                    nouvelle_origine = self.extraire_origine(libelle) if not origine else origine
+
+                    # Mise à jour dans PRODUIT_MARCHE_STADE
+                    cursor.execute("""
+                        UPDATE PRODUIT_MARCHE_STADE
+                        SET ESPECE = ?, VARIETE = ?, CALIBRE = ?, EMBALLAGE = ?, ORIGINE = ?
+                        WHERE MARCHE = ? AND STADE = ? AND LIBELLE_PRODUIT = ?
+                    """, (nouveau_espece, nouvelle_variete, nouveau_calibre, nouvel_emballage, nouvelle_origine, marche, stade, libelle))
+
+            # Validation des modifications
+            conn.commit()
+        except sqlite3.Error as e:
+            print(f"Erreur d'accès à la base de données : {e}")
+        finally:
+            conn.close()
+            print("Ajout et mise à jour terminés.")
+
+    def exporter_vers_excel(self, query, output_path):
+        """
+        Exécute une requête SQL et exporte les résultats dans un fichier Excel.
+        :param query: Requête SQL à exécuter.
+        :param output_path: Chemin du fichier Excel de sortie.
+        """
+        try:
+            conn = sqlite3.connect(self.db_path)
+            # Lire les résultats de la requête dans un DataFrame pandas
+            df = pd.read_sql_query(query, conn)
+            # Exporter vers Excel
+            df.to_excel(output_path, index=False)
+            print(f"Exportation réussie vers : {output_path}")
+        except Exception as e:
+            print(f"Erreur lors de l'exportation : {e}")
+        finally:
+            conn.close()
+
+
+if __name__ == "__main__":
+    db_path = "/app/data/IAFetL.db"
+    updater = P_M_S_Updater(db_path)
+
+    # Exécuter les mises à jour
+    updater.ajouter_et_mettre_a_jour()
+
+    # Exporter les données vers Excel
+    query = "SELECT * FROM PRODUIT_MARCHE_STADE"
+    output_path = "/app/tests/resultats_produit_marche_stade.xlsx"
+    updater.exporter_vers_excel(query, output_path)
