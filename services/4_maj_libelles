@@ -1,31 +1,42 @@
-import sqlite3
-import re
+import psycopg2
 import pandas as pd
+import re
 
 
 class P_M_S_Updater:
-    def __init__(self, db_path):
-        self.db_path = db_path
+    def __init__(self, db_config):
+        """
+        Initialise la connexion PostgreSQL.
+        :param db_config: Dictionnaire contenant les paramètres de connexion à la base PostgreSQL.
+        """
+        self.db_config = db_config
+
+    def get_postgres_connection(self):
+        """
+        Crée et retourne une connexion PostgreSQL.
+        """
+        try:
+            conn = psycopg2.connect(**self.db_config)
+            return conn
+        except psycopg2.Error as e:
+            print(f"Erreur de connexion à la base PostgreSQL : {e}")
+            raise
 
     @staticmethod
     def extraire_calibre(libelle):
-        # Recherche à partir de la fin de la chaîne
         for sep in ['-', '/', '+']:
             pos_sep = libelle.rfind(sep)
             while pos_sep != -1:
-                # Vérifier si un chiffre se trouve immédiatement avant ou après le séparateur
                 if (pos_sep > 0 and libelle[pos_sep - 1].isdigit()) or \
                    (pos_sep < len(libelle) - 1 and libelle[pos_sep + 1].isdigit()):
-                    # Trouver les espaces les plus proches avant et après
                     pos_before = libelle.rfind(' ', 0, pos_sep)
                     pos_after = libelle.find(' ', pos_sep)
                     if pos_before != -1 and pos_after != -1:
                         return libelle[pos_before + 1:pos_after].strip()
-                    elif pos_before != -1:  # Si aucun espace après, prendre jusqu'à la fin
+                    elif pos_before != -1:
                         return libelle[pos_before + 1:].strip()
-                    elif pos_after != -1:  # Si aucun espace avant, prendre depuis le début
+                    elif pos_after != -1:
                         return libelle[:pos_after].strip()
-                # Continuer la recherche pour le même séparateur, en remontant
                 pos_sep = libelle.rfind(sep, 0, pos_sep)
         return ''
 
@@ -71,17 +82,18 @@ class P_M_S_Updater:
 
     def ajouter_et_mettre_a_jour(self):
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = self.get_postgres_connection()
             cursor = conn.cursor()
 
             # Ajouter les valeurs manquantes dans PRODUIT_MARCHE_STADE
             cursor.execute("""
-                INSERT OR IGNORE INTO PRODUIT_MARCHE_STADE (MARCHE, STADE, LIBELLE_PRODUIT)
+                INSERT INTO PRODUIT_MARCHE_STADE (MARCHE, STADE, LIBELLE_PRODUIT)
                 SELECT DISTINCT MARCHE, STADE, LIBELLE_PRODUIT
                 FROM COTATIONS_RNM_JOURNALIERES
+                ON CONFLICT DO NOTHING
             """)
 
-            # Récupération des lignes avec des colonnes vides ou nulles dans PRODUIT_MARCHE_STADE
+            # Récupérer les lignes à mettre à jour
             cursor.execute("""
                 SELECT MARCHE, STADE, LIBELLE_PRODUIT, ESPECE, VARIETE, CALIBRE, EMBALLAGE, ORIGINE
                 FROM PRODUIT_MARCHE_STADE
@@ -92,39 +104,29 @@ class P_M_S_Updater:
                 marche, stade, libelle, espece, variete, calibre, emballage, origine = row
 
                 if libelle:
-                    # Mise à jour des champs
                     nouveau_espece = self.extraire_espece(libelle) if not espece else espece
                     nouvelle_variete = self.extraire_variete(libelle) if not variete else variete
                     nouveau_calibre = self.extraire_calibre(libelle) if not calibre else calibre
                     nouvel_emballage = self.extraire_emballage(libelle, nouveau_calibre) if nouveau_calibre else ''
                     nouvelle_origine = self.extraire_origine(libelle) if not origine else origine
 
-                    # Mise à jour dans PRODUIT_MARCHE_STADE
                     cursor.execute("""
                         UPDATE PRODUIT_MARCHE_STADE
-                        SET ESPECE = ?, VARIETE = ?, CALIBRE = ?, EMBALLAGE = ?, ORIGINE = ?
-                        WHERE MARCHE = ? AND STADE = ? AND LIBELLE_PRODUIT = ?
+                        SET ESPECE = %s, VARIETE = %s, CALIBRE = %s, EMBALLAGE = %s, ORIGINE = %s
+                        WHERE MARCHE = %s AND STADE = %s AND LIBELLE_PRODUIT = %s
                     """, (nouveau_espece, nouvelle_variete, nouveau_calibre, nouvel_emballage, nouvelle_origine, marche, stade, libelle))
 
-            # Validation des modifications
             conn.commit()
-        except sqlite3.Error as e:
-            print(f"Erreur d'accès à la base de données : {e}")
+        except psycopg2.Error as e:
+            print(f"Erreur d'accès à la base PostgreSQL : {e}")
         finally:
             conn.close()
             print("Ajout et mise à jour terminés.")
 
     def exporter_vers_excel(self, query, output_path):
-        """
-        Exécute une requête SQL et exporte les résultats dans un fichier Excel.
-        :param query: Requête SQL à exécuter.
-        :param output_path: Chemin du fichier Excel de sortie.
-        """
         try:
-            conn = sqlite3.connect(self.db_path)
-            # Lire les résultats de la requête dans un DataFrame pandas
+            conn = self.get_postgres_connection()
             df = pd.read_sql_query(query, conn)
-            # Exporter vers Excel
             df.to_excel(output_path, index=False)
             print(f"Exportation réussie vers : {output_path}")
         except Exception as e:
@@ -134,8 +136,15 @@ class P_M_S_Updater:
 
 
 if __name__ == "__main__":
-    db_path = "/app/data/IAFetL.db"
-    updater = P_M_S_Updater(db_path)
+    db_config = {
+        "host": "prixfetl_postgres",
+        "port": 5432,
+        "database": "IAFetL",
+        "user": "prixfetl",
+        "password": "Leumces123"
+    }
+
+    updater = P_M_S_Updater(db_config)
 
     # Exécuter les mises à jour
     updater.ajouter_et_mettre_a_jour()

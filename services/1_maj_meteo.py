@@ -15,8 +15,8 @@ def get_postgres_connection():
             dbname="IAFetL",
             user="prixfetl",
             password="Leumces123",
-            host="51.83.76.57",
-            port="5012"
+            host="prixfetl_postgres",
+            port="5432"
         )
         return conn
     except psycopg2.Error as e:

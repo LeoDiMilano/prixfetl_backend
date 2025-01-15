@@ -1,0 +1,1110 @@
+ID;PWXL;N;E
+P;PGeneral
+P;Pdd/mm/yyyy
+P;Pdd/mm/yy
+P;FArial;M200
+P;FArial;M200
+P;FArial;M200
+P;FArial;M200
+P;EArial;M250;SB;L40
+P;EArial;M220;SBI;L50
+P;EArial;M210;SBI
+F;W2 2 35
+F;W3 3 15
+F;W4 4 50
+F;W5 5 15
+F;SM5;X1;Y1
+C;K"Nectarine - RNM"
+F;SM5;X1;Y2
+C;K"dernière cotation avant le 29-08-2022"
+F;FG0C;SM6;X1;Y4
+C;K"DATE"
+F;FG0C;SM6;X2;Y4
+C;K"MARCHE"
+F;FG0C;SM6;X3;Y4
+C;K"STADE"
+F;FG0C;SM6;X4;Y4
+C;K"LIBELLE"
+F;FG0C;SM6;X5;Y4
+C;K"UNITE PRIX"
+F;FG0C;SM6;X6;Y4
+C;K"MOY"
+F;FG0C;SM6;X7;Y4
+C;K"VARIA."
+F;FG0C;SM6;X8;Y4
+C;K"MIN"
+F;FG0C;SM6;X9;Y4
+C;K"MAX"
+C;X1;Y5;K"25-08-2022"
+C;X2;Y5;K"Marché de Lyon-Corbas carreau : fruits et légumes"
+C;X3;Y5;K"Marché de producteurs"
+C;X4;Y5;K"NECTARINE chair blanche Rhône-Alpes cat.I A"
+C;X5;Y5;K"le kg"
+F;SM7;X6;Y5
+C;K2.55
+C;X7;Y5;K0.05
+C;X8;Y5;K2.50
+C;X9;Y5;K2.60
+C;X1;Y6;K"25-08-2022"
+C;X2;Y6;K"Marché de Lyon-Corbas carreau : fruits et légumes"
+C;X3;Y6;K"Marché de producteurs"
+C;X4;Y6;K"NECTARINE chair blanche Rhône-Alpes cat.I B"
+C;X5;Y6;K"le kg"
+F;SM7;X6;Y6
+C;K2.20
+C;X7;Y6;K-0.1
+C;X8;Y6;K""
+C;X9;Y6;K""
+C;X1;Y7;K"25-08-2022"
+C;X2;Y7;K"Marché de Lyon-Corbas carreau : fruits et légumes"
+C;X3;Y7;K"Marché de producteurs"
+C;X4;Y7;K"NECTARINE chair jaune Rhône-Alpes cat.I A"
+C;X5;Y7;K"le kg"
+F;SM7;X6;Y7
+C;K2.55
+C;X7;Y7;K0.05
+C;X8;Y7;K""
+C;X9;Y7;K""
+C;X1;Y8;K"25-08-2022"
+C;X2;Y8;K"Marché de Lyon-Corbas carreau : fruits et légumes"
+C;X3;Y8;K"Marché de producteurs"
+C;X4;Y8;K"NECTARINE chair jaune Rhône-Alpes cat.I B"
+C;X5;Y8;K"le kg"
+F;SM7;X6;Y8
+C;K2.20
+C;X7;Y8;K0
+C;X8;Y8;K""
+C;X9;Y8;K""
+C;X1;Y9;K"25-08-2022"
+C;X2;Y9;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y9;K"Marché de producteurs"
+C;X4;Y9;K"NECTARINE chair blanche Roussillon AA plateau 1rg"
+C;X5;Y9;K"le kg"
+F;SM7;X6;Y9
+C;K2.30
+C;X7;Y9;K0
+C;X8;Y9;K2.20
+C;X9;Y9;K2.40
+C;X1;Y10;K"25-08-2022"
+C;X2;Y10;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y10;K"Marché de producteurs"
+C;X4;Y10;K"NECTARINE chair blanche Roussillon A plateau 1rg"
+C;X5;Y10;K"le kg"
+F;SM7;X6;Y10
+C;K2.00
+C;X7;Y10;K0
+C;X8;Y10;K2.00
+C;X9;Y10;K2.20
+C;X1;Y11;K"25-08-2022"
+C;X2;Y11;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y11;K"Marché de producteurs"
+C;X4;Y11;K"NECTARINE chair blanche Roussillon B plateau 1rg"
+C;X5;Y11;K"le kg"
+F;SM7;X6;Y11
+C;K1.80
+C;X7;Y11;K0
+C;X8;Y11;K1.70
+C;X9;Y11;K1.80
+C;X1;Y12;K"25-08-2022"
+C;X2;Y12;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y12;K"Marché de producteurs"
+C;X4;Y12;K"NECTARINE chair jaune Roussillon AA plateau 1rg"
+C;X5;Y12;K"le kg"
+F;SM7;X6;Y12
+C;K2.50
+C;X7;Y12;K0
+C;X8;Y12;K2.40
+C;X9;Y12;K2.60
+C;X1;Y13;K"25-08-2022"
+C;X2;Y13;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y13;K"Marché de producteurs"
+C;X4;Y13;K"NECTARINE chair jaune Roussillon A plateau 1rg"
+C;X5;Y13;K"le kg"
+F;SM7;X6;Y13
+C;K2.20
+C;X7;Y13;K0
+C;X8;Y13;K2.00
+C;X9;Y13;K2.20
+C;X1;Y14;K"25-08-2022"
+C;X2;Y14;K"Marché de Perpignan carreau : fruits et légumes"
+C;X3;Y14;K"Marché de producteurs"
+C;X4;Y14;K"NECTARINE chair jaune Roussillon B plateau 1rg"
+C;X5;Y14;K"le kg"
+F;SM7;X6;Y14
+C;K1.80
+C;X7;Y14;K0
+C;X8;Y14;K1.70
+C;X9;Y14;K1.80
+C;X1;Y15;K"25-08-2022"
+C;X2;Y15;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y15;K"Expédition"
+C;X4;Y15;K"NECTARINE chair blanche qualité supérieure Rhône-Alpes cat.I AA plateau 1rg"
+C;X5;Y15;K"le kg"
+F;SM7;X6;Y15
+C;K2.75
+C;X7;Y15;K0.05
+C;X8;Y15;K2.70
+C;X9;Y15;K2.80
+C;X1;Y16;K"25-08-2022"
+C;X2;Y16;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y16;K"Expédition"
+C;X4;Y16;K"NECTARINE chair blanche qualité supérieure Rhône-Alpes cat.I A plateau 1rg"
+C;X5;Y16;K"le kg"
+F;SM7;X6;Y16
+C;K2.55
+C;X7;Y16;K0.05
+C;X8;Y16;K2.50
+C;X9;Y16;K2.60
+C;X1;Y17;K"25-08-2022"
+C;X2;Y17;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y17;K"Expédition"
+C;X4;Y17;K"NECTARINE chair blanche qualité supérieure Rhône-Alpes cat.I B plateau 1rg"
+C;X5;Y17;K"le kg"
+F;SM7;X6;Y17
+C;K2.00
+C;X7;Y17;K0
+C;X8;Y17;K2.00
+C;X9;Y17;K2.10
+C;X1;Y18;K"25-08-2022"
+C;X2;Y18;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y18;K"Expédition"
+C;X4;Y18;K"NECTARINE chair jaune qualité supérieure Rhône-Alpes cat.I AA plateau 1rg"
+C;X5;Y18;K"le kg"
+F;SM7;X6;Y18
+C;K2.75
+C;X7;Y18;K0.05
+C;X8;Y18;K2.70
+C;X9;Y18;K2.80
+C;X1;Y19;K"25-08-2022"
+C;X2;Y19;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y19;K"Expédition"
+C;X4;Y19;K"NECTARINE chair jaune qualité supérieure Rhône-Alpes cat.I A plateau 1rg"
+C;X5;Y19;K"le kg"
+F;SM7;X6;Y19
+C;K2.55
+C;X7;Y19;K0.05
+C;X8;Y19;K2.50
+C;X9;Y19;K2.60
+C;X1;Y20;K"25-08-2022"
+C;X2;Y20;K"Bassin Auvergne Rhône-Alpes : fruits d'été"
+C;X3;Y20;K"Expédition"
+C;X4;Y20;K"NECTARINE chair jaune qualité supérieure Rhône-Alpes cat.I B plateau 1rg"
+C;X5;Y20;K"le kg"
+F;SM7;X6;Y20
+C;K2.00
+C;X7;Y20;K0
+C;X8;Y20;K2.00
+C;X9;Y20;K2.10
+C;X1;Y21;K"29-08-2022"
+C;X2;Y21;K"Bassin Roussillon : fruits et légumes"
+C;X3;Y21;K"Expédition"
+C;X4;Y21;K"NECTARINE chair blanche qualité supérieure Roussillon cat.I A plateau 1rg"
+C;X5;Y21;K"le kg"
+F;SM7;X6;Y21
+C;K2.35
+C;X7;Y21;K-0.05
+C;X8;Y21;K2.10
+C;X9;Y21;K2.60
+C;X1;Y22;K"29-08-2022"
+C;X2;Y22;K"Bassin Roussillon : fruits et légumes"
+C;X3;Y22;K"Expédition"
+C;X4;Y22;K"NECTARINE chair blanche qualité supérieure Roussillon cat.I B plateau 1rg"
+C;X5;Y22;K"le kg"
+F;SM7;X6;Y22
+C;K2.00
+C;X7;Y22;K0
+C;X8;Y22;K1.90
+C;X9;Y22;K2.20
+C;X1;Y23;K"29-08-2022"
+C;X2;Y23;K"Bassin Roussillon : fruits et légumes"
+C;X3;Y23;K"Expédition"
+C;X4;Y23;K"NECTARINE chair jaune qualité supérieure Roussillon cat.I A plateau 1rg"
+C;X5;Y23;K"le kg"
+F;SM7;X6;Y23
+C;K2.35
+C;X7;Y23;K-0.05
+C;X8;Y23;K2.10
+C;X9;Y23;K2.60
+C;X1;Y24;K"29-08-2022"
+C;X2;Y24;K"Bassin Roussillon : fruits et légumes"
+C;X3;Y24;K"Expédition"
+C;X4;Y24;K"NECTARINE chair jaune qualité supérieure Roussillon cat.I B plateau 1rg"
+C;X5;Y24;K"le kg"
+F;SM7;X6;Y24
+C;K2.00
+C;X7;Y24;K0
+C;X8;Y24;K1.90
+C;X9;Y24;K2.20
+C;X1;Y25;K"24-08-2022"
+C;X2;Y25;K"Bassin Roussillon : fruits et légumes bio"
+C;X3;Y25;K"Expédition"
+C;X4;Y25;K"NECTARINE chair blanche Roussillon biologique"
+C;X5;Y25;K"le kg"
+F;SM7;X6;Y25
+C;K3.70
+C;X7;Y25;K0.1
+C;X8;Y25;K3.40
+C;X9;Y25;K4.00
+C;X1;Y26;K"24-08-2022"
+C;X2;Y26;K"Bassin Roussillon : fruits et légumes bio"
+C;X3;Y26;K"Expédition"
+C;X4;Y26;K"NECTARINE chair jaune Roussillon biologique"
+C;X5;Y26;K"le kg"
+F;SM7;X6;Y26
+C;K3.70
+C;X7;Y26;K0.1
+C;X8;Y26;K3.40
+C;X9;Y26;K4.00
+C;X1;Y27;K"24-08-2022"
+C;X2;Y27;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y27;K"Expédition"
+C;X4;Y27;K"NECTARINE chair blanche Sud-Est biologique A"
+C;X5;Y27;K"le kg"
+F;SM7;X6;Y27
+C;K3.97
+C;X7;Y27;K-0.06
+C;X8;Y27;K3.50
+C;X9;Y27;K4.93
+C;X1;Y28;K"24-08-2022"
+C;X2;Y28;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y28;K"Expédition"
+C;X4;Y28;K"NECTARINE chair blanche Sud-Est biologique B"
+C;X5;Y28;K"le kg"
+F;SM7;X6;Y28
+C;K3.85
+C;X7;Y28;K0.02
+C;X8;Y28;K3.40
+C;X9;Y28;K4.93
+C;X1;Y29;K"24-08-2022"
+C;X2;Y29;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y29;K"Expédition"
+C;X4;Y29;K"NECTARINE chair blanche Sud-Est biologique C"
+C;X5;Y29;K"le kg"
+F;SM7;X6;Y29
+C;K3.50
+C;X7;Y29;K0.1
+C;X8;Y29;K2.60
+C;X9;Y29;K4.74
+C;X1;Y30;K"24-08-2022"
+C;X2;Y30;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y30;K"Expédition"
+C;X4;Y30;K"NECTARINE chair jaune Sud-Est biologique A"
+C;X5;Y30;K"le kg"
+F;SM7;X6;Y30
+C;K3.97
+C;X7;Y30;K-0.11
+C;X8;Y30;K3.50
+C;X9;Y30;K4.93
+C;X1;Y31;K"24-08-2022"
+C;X2;Y31;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y31;K"Expédition"
+C;X4;Y31;K"NECTARINE chair jaune Sud-Est biologique B"
+C;X5;Y31;K"le kg"
+F;SM7;X6;Y31
+C;K3.85
+C;X7;Y31;K0.04
+C;X8;Y31;K3.40
+C;X9;Y31;K4.93
+C;X1;Y32;K"24-08-2022"
+C;X2;Y32;K"Bassins Sud-Est : fruits et légumes bio"
+C;X3;Y32;K"Expédition"
+C;X4;Y32;K"NECTARINE chair jaune Sud-Est biologique C"
+C;X5;Y32;K"le kg"
+F;SM7;X6;Y32
+C;K3.50
+C;X7;Y32;K0.17
+C;X8;Y32;K2.60
+C;X9;Y32;K4.71
+C;X1;Y33;K"29-08-2022"
+C;X2;Y33;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y33;K"Expédition"
+C;X4;Y33;K"NECTARINE chair blanche qualité supérieure Sud-Est cat.I AA plateau 1rg"
+C;X5;Y33;K"le kg"
+F;SM7;X6;Y33
+C;K2.80
+C;X7;Y33;K0
+C;X8;Y33;K2.50
+C;X9;Y33;K3.20
+C;X1;Y34;K"29-08-2022"
+C;X2;Y34;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y34;K"Expédition"
+C;X4;Y34;K"NECTARINE chair blanche qualité supérieure Sud-Est cat.I A plateau 1rg"
+C;X5;Y34;K"le kg"
+F;SM7;X6;Y34
+C;K2.55
+C;X7;Y34;K0
+C;X8;Y34;K2.40
+C;X9;Y34;K3.00
+C;X1;Y35;K"29-08-2022"
+C;X2;Y35;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y35;K"Expédition"
+C;X4;Y35;K"NECTARINE chair blanche qualité supérieure Sud-Est cat.I B plateau 1rg"
+C;X5;Y35;K"le kg"
+F;SM7;X6;Y35
+C;K2.10
+C;X7;Y35;K0
+C;X8;Y35;K1.90
+C;X9;Y35;K2.30
+C;X1;Y36;K"29-08-2022"
+C;X2;Y36;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y36;K"Expédition"
+C;X4;Y36;K"NECTARINE chair jaune qualité supérieure Sud-Est cat.I AA plateau 1rg"
+C;X5;Y36;K"le kg"
+F;SM7;X6;Y36
+C;K2.80
+C;X7;Y36;K0
+C;X8;Y36;K2.50
+C;X9;Y36;K3.20
+C;X1;Y37;K"29-08-2022"
+C;X2;Y37;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y37;K"Expédition"
+C;X4;Y37;K"NECTARINE chair jaune qualité supérieure Sud-Est cat.I A plateau 1rg"
+C;X5;Y37;K"le kg"
+F;SM7;X6;Y37
+C;K2.55
+C;X7;Y37;K0
+C;X8;Y37;K2.40
+C;X9;Y37;K3.00
+C;X1;Y38;K"29-08-2022"
+C;X2;Y38;K"Bassin Sud-Est : fruits et légumes 2"
+C;X3;Y38;K"Expédition"
+C;X4;Y38;K"NECTARINE chair jaune qualité supérieure Sud-Est cat.I B plateau 1rg"
+C;X5;Y38;K"le kg"
+F;SM7;X6;Y38
+C;K2.10
+C;X7;Y38;K0
+C;X8;Y38;K1.90
+C;X9;Y38;K2.30
+C;X1;Y39;K"25-08-2022"
+C;X2;Y39;K"France : fruits et légumes bio - expédition"
+C;X3;Y39;K"Expédition"
+C;X4;Y39;K"NECTARINE chair blanche France biologique"
+C;X5;Y39;K"le kg"
+F;SM7;X6;Y39
+C;K4.13
+C;X7;Y39;K0.11
+C;X8;Y39;K2.60
+C;X9;Y39;K4.71
+C;X1;Y40;K"25-08-2022"
+C;X2;Y40;K"France : fruits et légumes bio - expédition"
+C;X3;Y40;K"Expédition"
+C;X4;Y40;K"NECTARINE chair jaune France biologique"
+C;X5;Y40;K"le kg"
+F;SM7;X6;Y40
+C;K4.13
+C;X7;Y40;K0.28
+C;X8;Y40;K2.60
+C;X9;Y40;K4.93
+C;X1;Y41;K"24-08-2022"
+C;X2;Y41;K"France : fruits et légumes bio - import"
+C;X3;Y41;K"Import"
+C;X4;Y41;K"NECTARINE chair jaune Espagne biologique cat.I A"
+C;X5;Y41;K"le kg"
+F;SM7;X6;Y41
+C;K3.15
+C;X7;Y41;K""
+C;X8;Y41;K""
+C;X9;Y41;K""
+C;X1;Y42;K"24-08-2022"
+C;X2;Y42;K"France : fruits et légumes bio - import"
+C;X3;Y42;K"Import"
+C;X4;Y42;K"NECTARINE chair jaune Espagne biologique cat.I B"
+C;X5;Y42;K"le kg"
+F;SM7;X6;Y42
+C;K3.15
+C;X7;Y42;K-0.15
+C;X8;Y42;K""
+C;X9;Y42;K""
+C;X1;Y43;K"29-08-2022"
+C;X2;Y43;K"Marché de St-Charles : fruits et légumes - import"
+C;X3;Y43;K"Import"
+C;X4;Y43;K"NECTARINE chair blanche Espagne cat.I A plateau 1rg"
+C;X5;Y43;K"le kg"
+F;SM7;X6;Y43
+C;K1.50
+C;X7;Y43;K0
+C;X8;Y43;K""
+C;X9;Y43;K""
+C;X1;Y44;K"29-08-2022"
+C;X2;Y44;K"Marché de St-Charles : fruits et légumes - import"
+C;X3;Y44;K"Import"
+C;X4;Y44;K"NECTARINE chair jaune Espagne cat.I A plateau 1rg"
+C;X5;Y44;K"le kg"
+F;SM7;X6;Y44
+C;K1.45
+C;X7;Y44;K-0.05
+C;X8;Y44;K""
+C;X9;Y44;K""
+C;X1;Y45;K"25-08-2022"
+C;X2;Y45;K"France : fruits et légumes bio - grossistes"
+C;X3;Y45;K"Grossistes"
+C;X4;Y45;K"NECTARINE chair blanche France biologique"
+C;X5;Y45;K"le kg"
+F;SM7;X6;Y45
+C;K5.17
+C;X7;Y45;K0.09
+C;X8;Y45;K3.88
+C;X9;Y45;K6.72
+C;X1;Y46;K"25-08-2022"
+C;X2;Y46;K"France : fruits et légumes bio - grossistes"
+C;X3;Y46;K"Grossistes"
+C;X4;Y46;K"NECTARINE chair jaune France biologique"
+C;X5;Y46;K"le kg"
+F;SM7;X6;Y46
+C;K5.38
+C;X7;Y46;K0.2
+C;X8;Y46;K4.40
+C;X9;Y46;K6.72
+C;X1;Y47;K"29-08-2022"
+C;X2;Y47;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y47;K"Grossistes"
+C;X4;Y47;K"NECTARINE chair blanche Espagne cat.I A"
+C;X5;Y47;K"le kg"
+F;SM7;X6;Y47
+C;K1.80
+C;X7;Y47;K0
+C;X8;Y47;K1.60
+C;X9;Y47;K2.00
+C;X1;Y48;K"29-08-2022"
+C;X2;Y48;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y48;K"Grossistes"
+C;X4;Y48;K"NECTARINE chair blanche Espagne cat.I AA"
+C;X5;Y48;K"le kg"
+F;SM7;X6;Y48
+C;K1.90
+C;X7;Y48;K-0.05
+C;X8;Y48;K1.70
+C;X9;Y48;K2.10
+C;X1;Y49;K"29-08-2022"
+C;X2;Y49;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y49;K"Grossistes"
+C;X4;Y49;K"NECTARINE chair blanche France cat.I A"
+C;X5;Y49;K"le kg"
+F;SM7;X6;Y49
+C;K2.80
+C;X7;Y49;K0.1
+C;X8;Y49;K2.80
+C;X9;Y49;K2.90
+C;X1;Y50;K"29-08-2022"
+C;X2;Y50;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y50;K"Grossistes"
+C;X4;Y50;K"NECTARINE chair jaune Espagne cat.I A"
+C;X5;Y50;K"le kg"
+F;SM7;X6;Y50
+C;K1.70
+C;X7;Y50;K0
+C;X8;Y50;K1.60
+C;X9;Y50;K1.80
+C;X1;Y51;K"29-08-2022"
+C;X2;Y51;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y51;K"Grossistes"
+C;X4;Y51;K"NECTARINE chair jaune Espagne cat.I AA"
+C;X5;Y51;K"le kg"
+F;SM7;X6;Y51
+C;K1.85
+C;X7;Y51;K-0.1
+C;X8;Y51;K1.70
+C;X9;Y51;K1.90
+C;X1;Y52;K"29-08-2022"
+C;X2;Y52;K"Marché de Lyon-Corbas : fruits"
+C;X3;Y52;K"Grossistes"
+C;X4;Y52;K"NECTARINE chair jaune France cat.I A"
+C;X5;Y52;K"le kg"
+F;SM7;X6;Y52
+C;K2.80
+C;X7;Y52;K0.1
+C;X8;Y52;K2.80
+C;X9;Y52;K2.90
+C;X1;Y53;K"25-08-2022"
+C;X2;Y53;K"MIN d'Avignon-Cavaillon : fruits et légumes"
+C;X3;Y53;K"Grossistes"
+C;X4;Y53;K"NECTARINE chair blanche France cat.I AA plateau 1rg"
+C;X5;Y53;K"le kg"
+F;SM7;X6;Y53
+C;K3.30
+C;X7;Y53;K0
+C;X8;Y53;K3.20
+C;X9;Y53;K3.63
+C;X1;Y54;K"25-08-2022"
+C;X2;Y54;K"MIN d'Avignon-Cavaillon : fruits et légumes"
+C;X3;Y54;K"Grossistes"
+C;X4;Y54;K"NECTARINE chair blanche France cat.I A plateau 1rg"
+C;X5;Y54;K"le kg"
+F;SM7;X6;Y54
+C;K3.05
+C;X7;Y54;K0
+C;X8;Y54;K2.90
+C;X9;Y54;K3.20
+C;X1;Y55;K"25-08-2022"
+C;X2;Y55;K"MIN d'Avignon-Cavaillon : fruits et légumes"
+C;X3;Y55;K"Grossistes"
+C;X4;Y55;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y55;K"le kg"
+F;SM7;X6;Y55
+C;K3.35
+C;X7;Y55;K0
+C;X8;Y55;K3.20
+C;X9;Y55;K3.63
+C;X1;Y56;K"25-08-2022"
+C;X2;Y56;K"MIN d'Avignon-Cavaillon : fruits et légumes"
+C;X3;Y56;K"Grossistes"
+C;X4;Y56;K"NECTARINE chair jaune France cat.I A plateau 1rg"
+C;X5;Y56;K"le kg"
+F;SM7;X6;Y56
+C;K3.05
+C;X7;Y56;K0
+C;X8;Y56;K2.90
+C;X9;Y56;K3.20
+C;X1;Y57;K"26-08-2022"
+C;X2;Y57;K"MIN de Bordeaux-Brienne : fruits et légumes"
+C;X3;Y57;K"Grossistes"
+C;X4;Y57;K"NECTARINE chair blanche France cat.I AA plateau 1rg"
+C;X5;Y57;K"le kg"
+F;SM7;X6;Y57
+C;K3.20
+C;X7;Y57;K0
+C;X8;Y57;K2.60
+C;X9;Y57;K3.90
+C;X1;Y58;K"26-08-2022"
+C;X2;Y58;K"MIN de Bordeaux-Brienne : fruits et légumes"
+C;X3;Y58;K"Grossistes"
+C;X4;Y58;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y58;K"le kg"
+F;SM7;X6;Y58
+C;K3.20
+C;X7;Y58;K0
+C;X8;Y58;K2.60
+C;X9;Y58;K3.90
+C;X1;Y59;K"23-08-2022"
+C;X2;Y59;K"MIN de Lomme-Lille : fruits et légumes"
+C;X3;Y59;K"Grossistes"
+C;X4;Y59;K"NECTARINE chair blanche France cat.I A"
+C;X5;Y59;K"le kg"
+F;SM7;X6;Y59
+C;K3.40
+C;X7;Y59;K0.15
+C;X8;Y59;K3.25
+C;X9;Y59;K3.50
+C;X1;Y60;K"23-08-2022"
+C;X2;Y60;K"MIN de Lomme-Lille : fruits et légumes"
+C;X3;Y60;K"Grossistes"
+C;X4;Y60;K"NECTARINE chair jaune France cat.I A"
+C;X5;Y60;K"le kg"
+F;SM7;X6;Y60
+C;K3.40
+C;X7;Y60;K0.15
+C;X8;Y60;K3.25
+C;X9;Y60;K3.50
+C;X1;Y61;K"25-08-2022"
+C;X2;Y61;K"MIN de Marseille : fruits et légumes"
+C;X3;Y61;K"Grossistes"
+C;X4;Y61;K"NECTARINE chair blanche Espagne cat.I AA plateau 1rg"
+C;X5;Y61;K"le kg"
+F;SM7;X6;Y61
+C;K2.40
+C;X7;Y61;K-0.05
+C;X8;Y61;K1.90
+C;X9;Y61;K2.60
+C;X1;Y62;K"25-08-2022"
+C;X2;Y62;K"MIN de Marseille : fruits et légumes"
+C;X3;Y62;K"Grossistes"
+C;X4;Y62;K"NECTARINE chair blanche France cat.I AA plateau 1rg"
+C;X5;Y62;K"le kg"
+F;SM7;X6;Y62
+C;K3.20
+C;X7;Y62;K0
+C;X8;Y62;K2.70
+C;X9;Y62;K3.60
+C;X1;Y63;K"25-08-2022"
+C;X2;Y63;K"MIN de Marseille : fruits et légumes"
+C;X3;Y63;K"Grossistes"
+C;X4;Y63;K"NECTARINE chair jaune Espagne cat.I AA plateau 1rg"
+C;X5;Y63;K"le kg"
+F;SM7;X6;Y63
+C;K2.35
+C;X7;Y63;K-0.05
+C;X8;Y63;K1.90
+C;X9;Y63;K2.50
+C;X1;Y64;K"25-08-2022"
+C;X2;Y64;K"MIN de Marseille : fruits et légumes"
+C;X3;Y64;K"Grossistes"
+C;X4;Y64;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y64;K"le kg"
+F;SM7;X6;Y64
+C;K3.20
+C;X7;Y64;K0
+C;X8;Y64;K2.70
+C;X9;Y64;K3.60
+C;X1;Y65;K"29-08-2022"
+C;X2;Y65;K"MIN de Nantes : fruits et légumes"
+C;X3;Y65;K"Grossistes"
+C;X4;Y65;K"NECTARINE chair blanche France cat.I A"
+C;X5;Y65;K"le kg"
+F;SM7;X6;Y65
+C;K3.00
+C;X7;Y65;K0
+C;X8;Y65;K2.90
+C;X9;Y65;K3.40
+C;X1;Y66;K"29-08-2022"
+C;X2;Y66;K"MIN de Nantes : fruits et légumes"
+C;X3;Y66;K"Grossistes"
+C;X4;Y66;K"NECTARINE chair blanche France cat.I AA"
+C;X5;Y66;K"le kg"
+F;SM7;X6;Y66
+C;K3.30
+C;X7;Y66;K0
+C;X8;Y66;K2.95
+C;X9;Y66;K3.80
+C;X1;Y67;K"29-08-2022"
+C;X2;Y67;K"MIN de Nantes : fruits et légumes"
+C;X3;Y67;K"Grossistes"
+C;X4;Y67;K"NECTARINE chair blanche France cat.I B"
+C;X5;Y67;K"le kg"
+F;SM7;X6;Y67
+C;K2.80
+C;X7;Y67;K0
+C;X8;Y67;K2.60
+C;X9;Y67;K2.90
+C;X1;Y68;K"29-08-2022"
+C;X2;Y68;K"MIN de Nantes : fruits et légumes"
+C;X3;Y68;K"Grossistes"
+C;X4;Y68;K"NECTARINE chair jaune France cat.I A"
+C;X5;Y68;K"le kg"
+F;SM7;X6;Y68
+C;K3.20
+C;X7;Y68;K0
+C;X8;Y68;K2.90
+C;X9;Y68;K3.50
+C;X1;Y69;K"29-08-2022"
+C;X2;Y69;K"MIN de Nantes : fruits et légumes"
+C;X3;Y69;K"Grossistes"
+C;X4;Y69;K"NECTARINE chair jaune France cat.I AA"
+C;X5;Y69;K"le kg"
+F;SM7;X6;Y69
+C;K3.30
+C;X7;Y69;K0
+C;X8;Y69;K2.95
+C;X9;Y69;K3.50
+C;X1;Y70;K"29-08-2022"
+C;X2;Y70;K"MIN de Nantes : fruits et légumes"
+C;X3;Y70;K"Grossistes"
+C;X4;Y70;K"NECTARINE chair jaune France cat.I B"
+C;X5;Y70;K"le kg"
+F;SM7;X6;Y70
+C;K2.80
+C;X7;Y70;K0
+C;X8;Y70;K2.60
+C;X9;Y70;K2.90
+C;X1;Y71;K"25-08-2022"
+C;X2;Y71;K"MIN de Nantes : fruits et légumes bio"
+C;X3;Y71;K"Grossistes"
+C;X4;Y71;K"NECTARINE chair blanche France biologique"
+C;X5;Y71;K"le kg"
+F;SM7;X6;Y71
+C;K5.41
+C;X7;Y71;K0.26
+C;X8;Y71;K4.55
+C;X9;Y71;K6.72
+C;X1;Y72;K"25-08-2022"
+C;X2;Y72;K"MIN de Nantes : fruits et légumes bio"
+C;X3;Y72;K"Grossistes"
+C;X4;Y72;K"NECTARINE chair jaune France biologique"
+C;X5;Y72;K"le kg"
+F;SM7;X6;Y72
+C;K5.59
+C;X7;Y72;K0.66
+C;X8;Y72;K4.50
+C;X9;Y72;K6.72
+C;X1;Y73;K"29-08-2022"
+C;X2;Y73;K"MIN de Rungis : fruits et légumes"
+C;X3;Y73;K"Grossistes"
+C;X4;Y73;K"NECTARINE chair blanche Espagne cat.I A"
+C;X5;Y73;K"le kg"
+F;SM7;X6;Y73
+C;K2.20
+C;X7;Y73;K0
+C;X8;Y73;K1.80
+C;X9;Y73;K2.50
+C;X1;Y74;K"29-08-2022"
+C;X2;Y74;K"MIN de Rungis : fruits et légumes"
+C;X3;Y74;K"Grossistes"
+C;X4;Y74;K"NECTARINE chair blanche Espagne cat.I B"
+C;X5;Y74;K"le kg"
+F;SM7;X6;Y74
+C;K1.60
+C;X7;Y74;K0
+C;X8;Y74;K1.50
+C;X9;Y74;K1.80
+C;X1;Y75;K"29-08-2022"
+C;X2;Y75;K"MIN de Rungis : fruits et légumes"
+C;X3;Y75;K"Grossistes"
+C;X4;Y75;K"NECTARINE chair blanche France cat.I A"
+C;X5;Y75;K"le kg"
+F;SM7;X6;Y75
+C;K2.80
+C;X7;Y75;K0
+C;X8;Y75;K2.60
+C;X9;Y75;K3.20
+C;X1;Y76;K"29-08-2022"
+C;X2;Y76;K"MIN de Rungis : fruits et légumes"
+C;X3;Y76;K"Grossistes"
+C;X4;Y76;K"NECTARINE chair blanche France cat.I AA"
+C;X5;Y76;K"le kg"
+F;SM7;X6;Y76
+C;K3.30
+C;X7;Y76;K0
+C;X8;Y76;K2.80
+C;X9;Y76;K3.50
+C;X1;Y77;K"29-08-2022"
+C;X2;Y77;K"MIN de Rungis : fruits et légumes"
+C;X3;Y77;K"Grossistes"
+C;X4;Y77;K"NECTARINE chair jaune Espagne cat.I A"
+C;X5;Y77;K"le kg"
+F;SM7;X6;Y77
+C;K2.20
+C;X7;Y77;K0
+C;X8;Y77;K1.80
+C;X9;Y77;K2.50
+C;X1;Y78;K"29-08-2022"
+C;X2;Y78;K"MIN de Rungis : fruits et légumes"
+C;X3;Y78;K"Grossistes"
+C;X4;Y78;K"NECTARINE chair jaune Espagne cat.I B"
+C;X5;Y78;K"le kg"
+F;SM7;X6;Y78
+C;K1.60
+C;X7;Y78;K0
+C;X8;Y78;K1.50
+C;X9;Y78;K1.80
+C;X1;Y79;K"29-08-2022"
+C;X2;Y79;K"MIN de Rungis : fruits et légumes"
+C;X3;Y79;K"Grossistes"
+C;X4;Y79;K"NECTARINE chair jaune France cat.I A"
+C;X5;Y79;K"le kg"
+F;SM7;X6;Y79
+C;K2.80
+C;X7;Y79;K0
+C;X8;Y79;K2.60
+C;X9;Y79;K3.20
+C;X1;Y80;K"29-08-2022"
+C;X2;Y80;K"MIN de Rungis : fruits et légumes"
+C;X3;Y80;K"Grossistes"
+C;X4;Y80;K"NECTARINE chair jaune France cat.I AA"
+C;X5;Y80;K"le kg"
+F;SM7;X6;Y80
+C;K3.30
+C;X7;Y80;K0
+C;X8;Y80;K2.80
+C;X9;Y80;K3.50
+C;X1;Y81;K"25-08-2022"
+C;X2;Y81;K"MIN de Rungis : fruits et légumes bio"
+C;X3;Y81;K"Grossistes"
+C;X4;Y81;K"NECTARINE chair blanche France biologique"
+C;X5;Y81;K"le kg"
+F;SM7;X6;Y81
+C;K4.75
+C;X7;Y81;K-0.25
+C;X8;Y81;K3.88
+C;X9;Y81;K5.38
+C;X1;Y82;K"25-08-2022"
+C;X2;Y82;K"MIN de Rungis : fruits et légumes bio"
+C;X3;Y82;K"Grossistes"
+C;X4;Y82;K"NECTARINE chair jaune France biologique"
+C;X5;Y82;K"le kg"
+F;SM7;X6;Y82
+C;K5.33
+C;X7;Y82;K0
+C;X8;Y82;K4.99
+C;X9;Y82;K5.70
+C;X1;Y83;K"25-08-2022"
+C;X2;Y83;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y83;K"Grossistes"
+C;X4;Y83;K"NECTARINE chair blanche Espagne cat.I A plateau 1rg"
+C;X5;Y83;K"le kg"
+F;SM7;X6;Y83
+C;K2.50
+C;X7;Y83;K0
+C;X8;Y83;K2.00
+C;X9;Y83;K2.80
+C;X1;Y84;K"25-08-2022"
+C;X2;Y84;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y84;K"Grossistes"
+C;X4;Y84;K"NECTARINE chair blanche France cat.I AA plateau 1rg"
+C;X5;Y84;K"le kg"
+F;SM7;X6;Y84
+C;K3.23
+C;X7;Y84;K0
+C;X8;Y84;K2.60
+C;X9;Y84;K3.90
+C;X1;Y85;K"25-08-2022"
+C;X2;Y85;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y85;K"Grossistes"
+C;X4;Y85;K"NECTARINE chair blanche France cat.I A plateau 1rg"
+C;X5;Y85;K"le kg"
+F;SM7;X6;Y85
+C;K3.16
+C;X7;Y85;K0
+C;X8;Y85;K2.60
+C;X9;Y85;K3.90
+C;X1;Y86;K"25-08-2022"
+C;X2;Y86;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y86;K"Grossistes"
+C;X4;Y86;K"NECTARINE chair jaune Espagne cat.I A plateau 1rg"
+C;X5;Y86;K"le kg"
+F;SM7;X6;Y86
+C;K2.35
+C;X7;Y86;K-0.03
+C;X8;Y86;K2.00
+C;X9;Y86;K2.75
+C;X1;Y87;K"25-08-2022"
+C;X2;Y87;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y87;K"Grossistes"
+C;X4;Y87;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y87;K"le kg"
+F;SM7;X6;Y87
+C;K3.19
+C;X7;Y87;K0
+C;X8;Y87;K2.75
+C;X9;Y87;K3.90
+C;X1;Y88;K"25-08-2022"
+C;X2;Y88;K"MIN de Strasbourg : fruits et légumes"
+C;X3;Y88;K"Grossistes"
+C;X4;Y88;K"NECTARINE chair jaune France cat.I A plateau 1rg"
+C;X5;Y88;K"le kg"
+F;SM7;X6;Y88
+C;K3.04
+C;X7;Y88;K0
+C;X8;Y88;K2.75
+C;X9;Y88;K3.75
+C;X1;Y89;K"26-08-2022"
+C;X2;Y89;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y89;K"Grossistes"
+C;X4;Y89;K"NECTARINE chair blanche Espagne cat.I AA"
+C;X5;Y89;K"le kg"
+F;SM7;X6;Y89
+C;K2.00
+C;X7;Y89;K0
+C;X8;Y89;K1.90
+C;X9;Y89;K2.10
+C;X1;Y90;K"26-08-2022"
+C;X2;Y90;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y90;K"Grossistes"
+C;X4;Y90;K"NECTARINE chair blanche France cat.I A"
+C;X5;Y90;K"le kg"
+F;SM7;X6;Y90
+C;K2.70
+C;X7;Y90;K0
+C;X8;Y90;K2.60
+C;X9;Y90;K2.80
+C;X1;Y91;K"26-08-2022"
+C;X2;Y91;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y91;K"Grossistes"
+C;X4;Y91;K"NECTARINE chair blanche France cat.I AA"
+C;X5;Y91;K"le kg"
+F;SM7;X6;Y91
+C;K3.00
+C;X7;Y91;K0
+C;X8;Y91;K2.90
+C;X9;Y91;K3.00
+C;X1;Y92;K"26-08-2022"
+C;X2;Y92;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y92;K"Grossistes"
+C;X4;Y92;K"NECTARINE chair jaune Espagne cat.I AA"
+C;X5;Y92;K"le kg"
+F;SM7;X6;Y92
+C;K2.00
+C;X7;Y92;K0
+C;X8;Y92;K2.00
+C;X9;Y92;K2.10
+C;X1;Y93;K"26-08-2022"
+C;X2;Y93;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y93;K"Grossistes"
+C;X4;Y93;K"NECTARINE chair jaune France cat.I A"
+C;X5;Y93;K"le kg"
+F;SM7;X6;Y93
+C;K2.70
+C;X7;Y93;K0
+C;X8;Y93;K2.60
+C;X9;Y93;K2.80
+C;X1;Y94;K"26-08-2022"
+C;X2;Y94;K"MIN de Toulouse : fruits et légumes"
+C;X3;Y94;K"Grossistes"
+C;X4;Y94;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y94;K"le kg"
+F;SM7;X6;Y94
+C;K3.00
+C;X7;Y94;K0
+C;X8;Y94;K2.90
+C;X9;Y94;K3.00
+C;X1;Y95;K"24-08-2022"
+C;X2;Y95;K"Marché de Berlin : fruits et légumes"
+C;X3;Y95;K"Grossistes"
+C;X4;Y95;K"NECTARINE chair jaune Espagne cat.I AA plateau 1rg"
+C;X5;Y95;K"le kg"
+F;SM7;X6;Y95
+C;K2.40
+C;X7;Y95;K-0.5
+C;X8;Y95;K2.20
+C;X9;Y95;K2.60
+C;X1;Y96;K"24-08-2022"
+C;X2;Y96;K"Marché de Berlin : fruits et légumes"
+C;X3;Y96;K"Grossistes"
+C;X4;Y96;K"NECTARINE chair jaune Espagne cat.I A plateau 1rg"
+C;X5;Y96;K"le kg"
+F;SM7;X6;Y96
+C;K2.00
+C;X7;Y96;K-0.5
+C;X8;Y96;K1.80
+C;X9;Y96;K2.20
+C;X1;Y97;K"24-08-2022"
+C;X2;Y97;K"Marché de Berlin : fruits et légumes"
+C;X3;Y97;K"Grossistes"
+C;X4;Y97;K"NECTARINE chair jaune Espagne cat.I B plateau 1rg"
+C;X5;Y97;K"le kg"
+F;SM7;X6;Y97
+C;K1.80
+C;X7;Y97;K-0.25
+C;X8;Y97;K1.60
+C;X9;Y97;K2.00
+C;X1;Y98;K"24-08-2022"
+C;X2;Y98;K"Marché de Berlin : fruits et légumes"
+C;X3;Y98;K"Grossistes"
+C;X4;Y98;K"NECTARINE chair jaune Italie cat.I AA plateau 1rg"
+C;X5;Y98;K"le kg"
+F;SM7;X6;Y98
+C;K2.40
+C;X7;Y98;K-0.35
+C;X8;Y98;K2.20
+C;X9;Y98;K2.60
+C;X1;Y99;K"24-08-2022"
+C;X2;Y99;K"Marché de Berlin : fruits et légumes"
+C;X3;Y99;K"Grossistes"
+C;X4;Y99;K"NECTARINE chair jaune Italie cat.I A plateau 1rg"
+C;X5;Y99;K"le kg"
+F;SM7;X6;Y99
+C;K2.00
+C;X7;Y99;K-0.25
+C;X8;Y99;K1.80
+C;X9;Y99;K2.20
+C;X1;Y100;K"24-08-2022"
+C;X2;Y100;K"Marché de Munich : fruits et légumes"
+C;X3;Y100;K"Grossistes"
+C;X4;Y100;K"NECTARINE chair jaune Espagne cat.I AA plateau 1rg"
+C;X5;Y100;K"le kg"
+F;SM7;X6;Y100
+C;K2.70
+C;X7;Y100;K0.2
+C;X8;Y100;K2.60
+C;X9;Y100;K2.80
+C;X1;Y101;K"24-08-2022"
+C;X2;Y101;K"Marché de Munich : fruits et légumes"
+C;X3;Y101;K"Grossistes"
+C;X4;Y101;K"NECTARINE chair jaune Espagne cat.I A plateau 1rg"
+C;X5;Y101;K"le kg"
+F;SM7;X6;Y101
+C;K2.40
+C;X7;Y101;K0.1
+C;X8;Y101;K2.20
+C;X9;Y101;K2.60
+C;X1;Y102;K"24-08-2022"
+C;X2;Y102;K"Marché de Munich : fruits et légumes"
+C;X3;Y102;K"Grossistes"
+C;X4;Y102;K"NECTARINE chair jaune France cat.I AA plateau 1rg"
+C;X5;Y102;K"le kg"
+F;SM7;X6;Y102
+C;K4.25
+C;X7;Y102;K0.25
+C;X8;Y102;K4.00
+C;X9;Y102;K4.50
+C;X1;Y103;K"24-08-2022"
+C;X2;Y103;K"Marché de Munich : fruits et légumes"
+C;X3;Y103;K"Grossistes"
+C;X4;Y103;K"NECTARINE chair jaune Italie cat.I AA plateau 1rg"
+C;X5;Y103;K"le kg"
+F;SM7;X6;Y103
+C;K2.40
+C;X7;Y103;K0.1
+C;X8;Y103;K2.30
+C;X9;Y103;K2.50
+C;X1;Y104;K"24-08-2022"
+C;X2;Y104;K"Marché de Munich : fruits et légumes"
+C;X3;Y104;K"Grossistes"
+C;X4;Y104;K"NECTARINE chair jaune Italie cat.I A plateau 1rg"
+C;X5;Y104;K"le kg"
+F;SM7;X6;Y104
+C;K2.00
+C;X7;Y104;K0
+C;X8;Y104;K1.80
+C;X9;Y104;K2.20
+C;X1;Y105;K"24-08-2022"
+C;X2;Y105;K"Marché de Munich : fruits et légumes"
+C;X3;Y105;K"Grossistes"
+C;X4;Y105;K"NECTARINE plate chair blanche Espagne cat.I A"
+C;X5;Y105;K"le kg"
+F;SM7;X6;Y105
+C;K3.20
+C;X7;Y105;K-0.05
+C;X8;Y105;K3.00
+C;X9;Y105;K3.40
+C;X1;Y106;K"25-08-2022"
+C;X2;Y106;K"Fruits France DETAIL GMS"
+C;X3;Y106;K"Détail"
+C;X4;Y106;K"NECTARINE chair blanche France A-AA vrac"
+C;X5;Y106;K"le kg"
+F;SM7;X6;Y106
+C;K4.10
+C;X7;Y106;K-0.04
+C;X8;Y106;K2.99
+C;X9;Y106;K4.99
+C;X1;Y107;K"25-08-2022"
+C;X2;Y107;K"Fruits France DETAIL GMS"
+C;X3;Y107;K"Détail"
+C;X4;Y107;K"NECTARINE chair jaune France A-AA vrac"
+C;X5;Y107;K"le kg"
+F;SM7;X6;Y107
+C;K4.02
+C;X7;Y107;K-0.03
+C;X8;Y107;K2.99
+C;X9;Y107;K4.99
+C;X1;Y108;K"25-08-2022"
+C;X2;Y108;K"Fruits France DETAIL GMS"
+C;X3;Y108;K"Détail"
+C;X4;Y108;K"NECTARINE France barq.1kg"
+C;X5;Y108;K"le kg"
+F;SM7;X6;Y108
+C;K3.05
+C;X7;Y108;K0.08
+C;X8;Y108;K2.29
+C;X9;Y108;K3.99
+C;X1;Y109;K"25-08-2022"
+C;X2;Y109;K"Fruits France DETAIL GMS"
+C;X3;Y109;K"Détail"
+C;X4;Y109;K"NECTARINE France biologique"
+C;X5;Y109;K"le kg"
+F;SM7;X6;Y109
+C;K8.32
+C;X7;Y109;K0.59
+C;X8;Y109;K""
+C;X9;Y109;K""
+C;X1;Y110;K"25-08-2022"
+C;X2;Y110;K"Fruits France DETAIL MAG. SPECIALISES BIO"
+C;X3;Y110;K"Détail"
+C;X4;Y110;K"NECTARINE chair blanche France biologique"
+C;X5;Y110;K"le kg"
+F;SM7;X6;Y110
+C;K7.77
+C;X7;Y110;K0.17
+C;X8;Y110;K7.20
+C;X9;Y110;K8.00
+C;X1;Y111;K"25-08-2022"
+C;X2;Y111;K"Fruits France DETAIL MAG. SPECIALISES BIO"
+C;X3;Y111;K"Détail"
+C;X4;Y111;K"NECTARINE chair jaune France biologique"
+C;X5;Y111;K"le kg"
+F;SM7;X6;Y111
+C;K7.68
+C;X7;Y111;K0.07
+C;X8;Y111;K7.20
+C;X9;Y111;K8.25
+F;SM6;X1;Y113
+C;K"Source : RNM.FranceAgriMer.fr"
+E

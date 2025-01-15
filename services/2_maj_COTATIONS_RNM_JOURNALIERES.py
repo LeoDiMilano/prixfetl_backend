@@ -29,11 +29,11 @@ class CotationRnmScraper:
         """
         try:
             conn = psycopg2.connect(
-                host="51.83.76.57",
-                port=5012,
-                database="IAFetL",
+                dbname="IAFetL",
                 user="prixfetl",
-                password="Leumces123"
+                password="Leumces123",
+                host="prixfetl_postgres",
+                port="5432"
             )
             return conn
         except psycopg2.Error as e:
