@@ -225,6 +225,9 @@ class CotationRnmScraper:
             # Boucle sur les dates
             dates = pd.date_range(start=start_date, end=end_date)
             mondays = [date for date in dates if date.weekday() == 0]  # Filtrer uniquement les lundis
+            if not mondays:
+                print(f"[INFO] Aucune mise à jour nécessaire pour {product} (aucun lundi trouvé dans la période).")
+                
             for date in mondays:
                 formatted_date = date.strftime('%d%m%y')
                 date_interrogation = date.strftime('%Y-%m-%d')

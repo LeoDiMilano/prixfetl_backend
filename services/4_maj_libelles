@@ -58,8 +58,12 @@ class P_M_S_Updater:
 
     @staticmethod
     def extraire_origine(libelle):
-        if any(kw in libelle for kw in ['France', 'Martinique', 'Guadeloupe', 'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie']):
+        if any(kw in libelle for kw in ['France', 'DOM','Sud-Est', 'Corse', 'Val de Loire', 'Roussillon','Martinique', 'Guadeloupe', 'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie']):
             return 'FRANCE'
+        if 'Nouvelle-Zélande' in libelle:
+            return 'NZ'
+        if 'Grèce' in libelle:
+            return 'GRECE'
         if 'Afrique' in libelle:
             return 'AFRIQUE'
         if 'Espagne' in libelle:
@@ -76,9 +80,36 @@ class P_M_S_Updater:
             return 'ITALIE'
         if 'U.E.' in libelle:
             return 'UE'
+        if 'Tunisie' in libelle:
+            return 'TUNISIE'
+        if 'Chili' in libelle:
+            return 'CHILI'
+        if 'Israël' in libelle:
+            return 'ISRAEL'
+        if 'Belgique' in libelle:
+            return 'BELGIQUE'
+        if 'Egypte' in libelle:
+            return 'EGYPTE'
+        if 'Colombie' in libelle:
+            return 'COLOMBIE'
+        if 'Pays-Bas' in libelle:
+            return 'PAYS-BAS'
         if 'hors Fr.' in libelle:
             return 'HORS FR'
         return ''
+
+    @staticmethod
+    def extraire_categorie(libelle):
+        if 'biologique' in libelle:
+            return 'bio'
+        if 'industrie' in libelle:
+            return 'industrie'
+        if 'cat.II' in libelle:
+            return 'cat.II'
+        if 'cat.I' in libelle:
+            return 'cat.I'
+        return ''
+
 
     def ajouter_et_mettre_a_jour(self):
         try:
@@ -95,13 +126,13 @@ class P_M_S_Updater:
 
             # Récupérer les lignes à mettre à jour
             cursor.execute("""
-                SELECT MARCHE, STADE, LIBELLE_PRODUIT, ESPECE, VARIETE, CALIBRE, EMBALLAGE, ORIGINE
+                SELECT MARCHE, STADE, LIBELLE_PRODUIT, ESPECE, VARIETE, CALIBRE, EMBALLAGE, ORIGINE, CATEGORIE
                 FROM PRODUIT_MARCHE_STADE
             """)
             lignes = cursor.fetchall()
 
             for row in lignes:
-                marche, stade, libelle, espece, variete, calibre, emballage, origine = row
+                marche, stade, libelle, espece, variete, calibre, emballage, origine, categorie = row
 
                 if libelle:
                     nouveau_espece = self.extraire_espece(libelle) if not espece else espece
@@ -109,12 +140,13 @@ class P_M_S_Updater:
                     nouveau_calibre = self.extraire_calibre(libelle) if not calibre else calibre
                     nouvel_emballage = self.extraire_emballage(libelle, nouveau_calibre) if nouveau_calibre else ''
                     nouvelle_origine = self.extraire_origine(libelle) if not origine else origine
+                    nouvelle_categorie = self.extraire_categorie(libelle) if not categorie else categorie
 
                     cursor.execute("""
                         UPDATE PRODUIT_MARCHE_STADE
-                        SET ESPECE = %s, VARIETE = %s, CALIBRE = %s, EMBALLAGE = %s, ORIGINE = %s
+                        SET ESPECE = %s, VARIETE = %s, CALIBRE = %s, EMBALLAGE = %s, ORIGINE = %s, CATEGORIE = %s
                         WHERE MARCHE = %s AND STADE = %s AND LIBELLE_PRODUIT = %s
-                    """, (nouveau_espece, nouvelle_variete, nouveau_calibre, nouvel_emballage, nouvelle_origine, marche, stade, libelle))
+                    """, (nouveau_espece, nouvelle_variete, nouveau_calibre, nouvel_emballage, nouvelle_origine, nouvelle_categorie, marche, stade, libelle))
 
             conn.commit()
         except psycopg2.Error as e:
