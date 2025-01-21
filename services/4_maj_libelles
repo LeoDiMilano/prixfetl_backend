@@ -50,15 +50,47 @@ class P_M_S_Updater:
         return mots[1].upper() if len(mots) > 1 else ''
 
     @staticmethod
-    def extraire_emballage(libelle, calibre):
-        if calibre:
-            idx = libelle.find(calibre) + len(calibre)
-            return libelle[idx:].strip()
+    def extraire_emballage(libelle):
+        if not libelle:
+            return ''
+        # Normaliser le libellé
+        libelle = libelle.lower().strip()
+
+        if 'caisse' in libelle:
+            return 'caisse'
+        if 'plateau 1rg' in libelle:
+            return 'plateau 1rg'
+        if 'plateau 2rg' in libelle:
+            return 'plateau 2rg'
+        if 'sachet' in libelle:
+            return 'sachet'
+        if 'bushel' in libelle:
+            return 'bushel'
+        if 'benne' in libelle:
+            return 'benne'
+        if 'barq' in libelle:
+            return 'barquette'
+        if 'filet' in libelle:
+            return 'filet'
+        if 'carton' in libelle:
+            return 'carton'
+        if 'plateau' in libelle:
+            return 'plateau'
+        if 'colis' in libelle:
+            return 'colis'
+        if 'vrac' in libelle:
+            return 'vrac'
+        if 'cagette' in libelle:
+            return 'cagette'
+        if 'conteneur' in libelle:
+            return 'conteneur'
+
         return ''
 
     @staticmethod
     def extraire_origine(libelle):
-        if any(kw in libelle for kw in ['France', 'DOM','Sud-Est', 'Corse', 'Val de Loire', 'Roussillon','Martinique', 'Guadeloupe', 'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie']):
+        if any(kw in libelle for kw in ['France', 'DOM','Sud-Est', 'Corse', 'Val de Loire', 'Roussillon','Martinique', 'Guadeloupe',
+            'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie','Centre-Ouest','Limousin','Deux-Sèvres','Nord-Picardie']):
             return 'FRANCE'
         if 'Nouvelle-Zélande' in libelle:
             return 'NZ'
@@ -138,7 +170,7 @@ class P_M_S_Updater:
                     nouveau_espece = self.extraire_espece(libelle) if not espece else espece
                     nouvelle_variete = self.extraire_variete(libelle) if not variete else variete
                     nouveau_calibre = self.extraire_calibre(libelle) if not calibre else calibre
-                    nouvel_emballage = self.extraire_emballage(libelle, nouveau_calibre) if nouveau_calibre else ''
+                    nouvel_emballage = self.extraire_emballage(libelle) if not emballage else emballage
                     nouvelle_origine = self.extraire_origine(libelle) if not origine else origine
                     nouvelle_categorie = self.extraire_categorie(libelle) if not categorie else categorie
 
