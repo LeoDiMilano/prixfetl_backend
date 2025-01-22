@@ -10,3 +10,7 @@ __pycache__/
 .vscode/
 .env
 venv/
+driver/
+data/
+logs/
+model_storage/
