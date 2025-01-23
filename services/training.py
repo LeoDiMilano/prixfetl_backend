@@ -9,9 +9,10 @@ from xgboost import XGBRegressor
 import matplotlib.pyplot as plt
 import re
 
-from sklearn.feature_selection import RFECV
+
 from sklearn.model_selection import KFold  # ou autre type de CV (StratifiedKFold, etc.)
 from sklearn.feature_selection import RFE
+
 
 # On importe la classe qui prépare et charge les données
 from data_preprocessing import ApplePriceDataLoader
@@ -19,13 +20,6 @@ from data_preprocessing import ApplePriceDataLoader
 warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
 from sklearn.base import BaseEstimator, RegressorMixin
-
-class SklearnCompatibleXGBRegressor(XGBRegressor, BaseEstimator, RegressorMixin):
-    def __sklearn_tags__(self):
-        return {
-            "estimator_type": "regressor",
-            "requires_y": True,
-        }
 
 
 class PriceTrainer:
@@ -45,19 +39,19 @@ class PriceTrainer:
 
         # Paramètres du modèle XGB (communs à chaque horizon de prévision)
         self.model_params = {
-            'n_estimators': 500,
-            'learning_rate': 0.3,
-            'max_depth': 6,
-            'min_child_weight': 1,
-            'gamma': 0,
-            'subsample': 1,
-            'colsample_bytree': 1,
-            'objective': 'reg:squarederror',
-            'nthread': 4,
-            'scale_pos_weight': 1,
-            'seed': 0
+            'n_estimators': 500,  # Augmenter le nombre d'estimateurs pour une meilleure performance
+            'learning_rate': 0.3,  # Réduire le taux d'apprentissage pour une convergence plus stable
+            'max_depth': 6,  # Augmenter la profondeur maximale pour capturer des relations plus complexes
+            'min_child_weight': 1,  # Augmenter pour réduire le surapprentissage
+            'gamma': 0,  # Ajouter une pénalité pour les arbres complexes
+            'subsample': 0.8,  # Utiliser un sous-échantillon des données pour chaque arbre
+            'colsample_bytree': 1,  # Utiliser un sous-échantillon des features pour chaque arbre
+            'objective': 'reg:squarederror',  # Objectif de régression
+            'nthread': 4,  # Utiliser 4 threads pour l'entraînement
+            'scale_pos_weight': 2,  # Poids de l'échelle pour les classes déséquilibrées
+            'seed': 0,  # Fixer la graine pour la reproductibilité
+            #'missing': np.nan  # Spécifier la valeur manquante
         }
-
         # On stockera ici les modèles entraînés par (produit, horizon)
         # Exemple: self.models[(col, 'S1')] = XGBRegressor(...)
         self.models = {}
@@ -187,28 +181,29 @@ class PriceTrainer:
         df[f"{price_col}_S+3"] = df[price_col].shift(-3)  # dans 3 semaines
 
         return df
-# ------------------------------------------------------------------
-# NOUVELLE METHODE : RFE / RFECV SUR S+1
-# ------------------------------------------------------------------
-    from sklearn.feature_selection import RFE
+
 
     def train_model_s1_with_rfe(self, X_train, y_train_s1):
         # Filtrer les données
         mask_s1 = y_train_s1.notnull()
         X_train_filtered = X_train[mask_s1]
         y_train_filtered = y_train_s1[mask_s1]
+        # exporter X_train_filtered, y_train_filtered dans un fichier Excel pour vérifier que les données sont correctes
+        with pd.ExcelWriter("tests/4_train_data_filtered.xlsx") as writer:
+            X_train_filtered.T.to_excel(writer, sheet_name="X_train_filtered", header=False)
+            y_train_filtered.T.to_excel(writer, sheet_name="y_train_filtered", header=False)
 
         print(f"Taille des données après filtrage : {X_train_filtered.shape}, {y_train_filtered.shape}")
         print(f"Nombre de features avant optimisation : {X_train_filtered.shape[1]}")
 
         # Initialisation de l'estimateur
-        xgb_estimator = SklearnCompatibleXGBRegressor(**self.model_params)
+        xgb_estimator = XGBRegressor(**self.model_params)
 
-        # Configuration de RFE (sans validation croisée)
+        # Configuration de RFE
         rfe = RFE(
             estimator=xgb_estimator,
             n_features_to_select=20,  # Nombre final de features à garder
-            step=0.5  # On supprime 50 % des features à chaque étape
+            step=0.2  # On supprime 20 % des features à chaque étape
         )
 
         # Entraîner RFE
@@ -216,19 +211,13 @@ class PriceTrainer:
 
         # Récupérer les features sélectionnées
         selected_features = X_train_filtered.columns[rfe.support_]
-        print(f"Features sélectionnées : {selected_features.tolist()}")
+        #print(f"Features sélectionnées : {selected_features.tolist()}")
         print(f"Nombre de features après optimisation : {len(selected_features)}")
 
         return rfe, selected_features.tolist()
 
 
-
     def train_models_for_column(self, df, price_col):
-        """
-        Version modifiée : On applique la sélection par RFECV pour S+1,
-        puis on entraîne S+2, S+3 normalement (ou éventuellement tu peux
-        faire aussi une RFECV pour S+2, S+3 si tu veux).
-        """
         # 1) Ajout des colonnes cibles
         df = self.generate_shifted_targets(df, price_col)
 
@@ -250,12 +239,24 @@ class PriceTrainer:
         y_train_s1 = df_train[target_s1].copy()
         y_train_s2 = df_train[target_s2].copy()
         y_train_s3 = df_train[target_s3].copy()
+        # Exporter X_train, y_train_s1, etc. dans un fichier Excel pour vérifier que les données sont correctes
+        with pd.ExcelWriter("tests/2_train_data.xlsx") as writer:
+            X_train.to_excel(writer, sheet_name="X_train", index=False)
+            y_train_s1.to_excel(writer, sheet_name="y_train_s1", index=False)
+            y_train_s2.to_excel(writer, sheet_name="y_train_s2", index=False)
+            y_train_s3.to_excel(writer, sheet_name="y_train_s3", index=False)
 
         X_test = df_test[X_cols].copy()
         y_test_s1 = df_test[target_s1].copy()
         y_test_s2 = df_test[target_s2].copy()
         y_test_s3 = df_test[target_s3].copy()
-
+        # Exporter sous excel
+        with pd.ExcelWriter("tests/3_test_data.xlsx") as writer:
+            X_test.to_excel(writer, sheet_name="X_test", index=False)
+            y_test_s1.to_excel(writer, sheet_name="y_test_s1", index=False)
+            y_test_s2.to_excel(writer, sheet_name="y_test_s2", index=False)
+            y_test_s3.to_excel(writer, sheet_name="y_test_s3", index=False)
+            
 
         # ----------------------------------------------------------------
         # (A) Sélection RFE pour S+1
@@ -309,9 +310,35 @@ class PriceTrainer:
             print(f"[{price_col}] - RMSE test S+2 : {rmse_s2:.4f}")
             print(f"[{price_col}] - RMSE test S+3 : {rmse_s3:.4f}")
 
-        # Tu peux aussi exporter un Excel avec la liste finalisée de features 
-        # et leur importance, si tu le souhaites.
+        # Exporter sur excel les colonne DATE_INTERROGATION, PRIX xx où x est le nom de la colonne, PRIX xx_S+1_PREV, PRIX xx_S+1_REEL, PRIX xx_S+2_PREV, etc...
+        # Exporter les prédictions et les vraies valeurs pour S+1, S+2, S+3
+        sanitized_price_col = re.sub(r'\W+', '_', price_col)
+        with pd.ExcelWriter(f"tests/5_predictions_{sanitized_price_col}.xlsx") as writer:
+            df_test[['DATE_INTERROGATION', price_col, target_s1, target_s2, target_s3]].to_excel(writer, sheet_name="Valeurs réelles", index=False)
+            df_test['PRED_S1'] = pred_s1
+            df_test['PRED_S2'] = pred_s2
+            df_test['PRED_S3'] = pred_s3
+            df_test[['DATE_INTERROGATION', 'PRED_S1', 'PRED_S2', 'PRED_S3']].to_excel(writer, sheet_name="Prédictions", index=False)
 
+        # crée un graphique avec les valeurs réelles et les prédictions; un graphique par prediction (S+1, S+2, S+3)
+        fig, ax = plt.subplots(3, 1, figsize=(12, 12))
+        ax[0].plot(df_test['DATE_INTERROGATION'], df_test[price_col], label='Valeurs réelles')
+        ax[0].plot(df_test['DATE_INTERROGATION'], pred_s1, label='Prédictions')
+        ax[0].set_title(f"Prédictions pour {price_col} - S+1")
+        ax[0].legend()
+        # Idem pour S+2 et S+3
+        ax[1].plot(df_test['DATE_INTERROGATION'], df_test[price_col], label='Valeurs réelles')
+        ax[1].plot(df_test['DATE_INTERROGATION'], pred_s2, label='Prédictions')
+        ax[1].set_title(f"Prédictions pour {price_col} - S+2")
+        ax[1].legend()
+        ax[2].plot(df_test['DATE_INTERROGATION'], df_test[price_col], label='Valeurs réelles')
+        ax[2].plot(df_test['DATE_INTERROGATION'], pred_s3, label='Prédictions')
+        ax[2].set_title(f"Prédictions pour {price_col} - S+3")
+        ax[2].legend()
+        # stocker les graphiques dans un fichier
+        plt.savefig(f"tests/6_predictions_{sanitized_price_col}.png")
+        plt.close()
+        
     def generate_future_forecast(self, df, price_col):
         """
         Utilise le dernier point connu dans df pour prévoir S+1, S+2, S+3
@@ -429,6 +456,9 @@ if __name__ == "__main__":
 
     # Pour tester un seul produit avant de faire un run global
     df_complet = trainer.prepare_dataset()
+    # Export du dataset complet transposé dans un fichier Excel dans le dossier /tests/
+    df_complet.T.to_excel("tests/1_dataset_complet.xlsx", header=False)
+
     price_col = "PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG"
 
     print(f"\n** Test RFE sur {price_col} **")

@@ -137,6 +137,6 @@ if __name__ == "__main__":
     }
 
     vacances = VacancesJoursFeries(db_config)
-    df_vacances_jours_feries_grouped = vacances.create_vacances_jours_feries_dataset(2019, datetime.now().year)
+    df_vacances_jours_feries_grouped = vacances.create_vacances_jours_feries_dataset(2018, datetime.now().year)
     vacances.insert_data(df_vacances_jours_feries_grouped)
     vacances.export_to_excel(df_vacances_jours_feries_grouped, 'output_vacances_jours_feries.xlsx')
