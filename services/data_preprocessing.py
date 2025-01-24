@@ -6,8 +6,6 @@ import warnings
 warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
 
 
-
-
 class ApplePriceDataLoader:
 
     def __init__(self, db_config):
