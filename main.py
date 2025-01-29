@@ -9,6 +9,23 @@ if services_path not in sys.path:
 from services.training import PriceTrainer
 from services.inference import ModelInference
 from services.data_preprocessing import ApplePriceDataLoader
+from dotenv import load_dotenv
+from log_utils import setup_logging
+import logging
+logger = logging.getLogger(__name__)
+
+load_dotenv()  # charge les variables depuis .env
+
+db_config = {
+    "host": os.getenv("POSTGRES_HOST"),
+    "port": int(os.getenv("POSTGRES_PORT")),
+    "database": os.getenv("POSTGRES_DB"),
+    "user": os.getenv("POSTGRES_USER"),
+    "password": os.getenv("POSTGRES_PASSWORD")
+}
+
+DATA_RAW_DIR = os.getenv("DATA_RAW_DIR")
+DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
 
 def main():
     # Étape 1) Mise à jour des données brutes (ETL / ingestion)
@@ -23,19 +40,10 @@ def main():
 
     # Étape 2) Préprocessing (construction du DataFrame global)
     print("=== 4) Exécution du script data_preprocessing ===")
+    
     subprocess.run(["python", "/app/services/data_preprocessing.py"], check=True)
 
-    # Configuration de la base
-    db_config = {
-        "host": "prixfetl_postgres",
-        "port": 5432,
-        "database": "IAFetL",
-        "user": "prixfetl",
-        "password": "Leumces123"
-    }
-
-
-    # Lecture de la liste de produits depuis le fichier 'liste_produit_groupe.txt'
+     # Lecture de la liste de produits depuis le fichier 'liste_produit_groupe.txt'
     list_of_products = []
     if os.path.exists("liste_produit_groupe.txt"):
         with open("liste_produit_groupe.txt", "r", encoding="utf-8") as f:
@@ -58,13 +66,13 @@ def main():
     # (B) Inférence
     inference_engine = ModelInference(db_config, trainer)
 
-    # 1) Mise à jour des prix réels (pour les semaines passées)
-    print("=== 6) Mise à jour des prix réels (S+1, S+2, S+3) ===")
-    inference_engine.update_real_prices()
-
-    # 2) Insertion des nouvelles prévisions (pour les semaines à venir)
-    print("=== 7) Insertion des prévisions pour les lundis manquants ===")
+    # 1) Insertion des nouvelles prévisions (pour les semaines à venir)
+    print("=== 6) Insertion des prévisions pour les lundis manquants ===")
     inference_engine.fill_previsions_for_missing_mondays(list_of_products)
+
+    # 2) Mise à jour des prix réels (pour les semaines passées)
+    print("=== 7) Mise à jour des prix réels (S+1, S+2, S+3) ===")
+    inference_engine.update_real_prices()
 
     print("\n=== Fin du script principal ===")
 

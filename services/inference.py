@@ -17,19 +17,10 @@ class ModelInference:
     def get_connection(self):
         return psycopg2.connect(**self.db_config)
 
-    def get_connection(self):
-        """
-        Établit une connexion PostgreSQL.
-
-        Returns:
-            psycopg2.Connection : Connexion à la base de données.
-        """
-        return psycopg2.connect(**self.db_config)
-
     def get_last_date_in_db(self):
         """
         Récupère la dernière date présente dans la table `previsions_prix`. Si aucune date n'est trouvée,
-        retourne le lundi de la première semaine de 2024.
+        retourne le lundi de la première semaine_saison de 2024.
 
         Returns:
             datetime.date : La dernière date trouvée ou la date par défaut (2024-01-01).
@@ -58,7 +49,7 @@ class ModelInference:
                 conn.close()
 
         # Retourne la date par défaut si aucune date n'est trouvée
-        return last_date if last_date else date(2024, 1, 1)
+        return last_date if last_date else date(2024, 8, 5)
 
     @staticmethod
     def generate_mondays_between(start_date, end_date):
@@ -82,24 +73,19 @@ class ModelInference:
             yield current_date
             current_date += timedelta(days=7)
 
+
     def update_real_prices(self):
         """
-        1) Recharge les derniers prix réels depuis la base (via ApplePriceDataLoader).
-        2) Récupère les lignes de previsions_prix pour lesquelles on n’a pas encore PRIX_REEL_S1, S2 ou S3.
-        3) Pour chaque ligne, calcule la date correspondante à S+1 (DATE_INTERROGATION + 7j), etc.,
-           puis retrouve le 'vrai' prix dans df_sql.
-        4) Met à jour la table previsions_prix avec ces prix réels et calcule VAR_PRIX_REEL_Sx.
+        Met à jour les colonnes PRIX_REEL_Sx et VAR_PRIX_REEL_Sx dans la table previsions_prix
+        en utilisant uniquement les données déjà présentes dans la table.
         """
 
-        # === 1) Recharger les derniers prix réels depuis la base ===
-        loader = ApplePriceDataLoader(self.db_config)
-        df_sql = loader.load_prices_dataframe()  # DataFrame contenant toutes les colonnes "PRIX ..."
-
-        # === 2) Sélectionner les lignes previsions_prix à compléter ===
+        # SQL pour récupérer les lignes nécessitant une mise à jour
         select_sql = """
             SELECT
                 "DATE_INTERROGATION",
                 "PRODUIT_GROUPE",
+                "PRIX_REEL_S",
                 "PRIX_PREV_S1",
                 "PRIX_PREV_S2",
                 "PRIX_PREV_S3",
@@ -107,12 +93,7 @@ class ModelInference:
                 "PRIX_REEL_S2",
                 "PRIX_REEL_S3"
             FROM previsions_prix
-            WHERE (
-                "PRIX_REEL_S1" IS NULL
-                OR "PRIX_REEL_S2" IS NULL
-                OR "PRIX_REEL_S3" IS NULL
-            )
-            ORDER BY "DATE_INTERROGATION"
+            ORDER BY "PRODUIT_GROUPE", "DATE_INTERROGATION"
         """
 
         rows_to_update = []
@@ -139,41 +120,25 @@ class ModelInference:
                 conn.close()
 
         if not rows_to_update:
-            print("[update_reel_prices] Rien à mettre à jour (aucun PRIX_REEL_Sx manquant).")
+            print("[update_real_prices] Rien à mettre à jour.")
             return
 
-        # === 3) Chercher, pour chaque ligne, le prix réel dans df_sql ===
+        # Préparer les mises à jour
         updates = []
-        for row in rows_to_update:
+        for i, row in enumerate(rows_to_update):
             date_lundi = row["DATE_INTERROGATION"]
-            produit_groupe = row["PRODUIT_GROUPE"]  # ex. "EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG"
-            col_name = "PRIX " + produit_groupe     # la colonne dans df_sql
+            produit_groupe = row["PRODUIT_GROUPE"]
+            real_price_s = row["PRIX_REEL_S"]
+        
+            # Obtenir les prix réels S+1, S+2, S+3 à partir des lignes suivantes
+            real_price_s1 = rows_to_update[i + 1]["PRIX_REEL_S"] if i + 1 < len(rows_to_update) and rows_to_update[i + 1]["PRODUIT_GROUPE"] == produit_groupe else None
+            real_price_s2 = rows_to_update[i + 2]["PRIX_REEL_S"] if i + 2 < len(rows_to_update) and rows_to_update[i + 2]["PRODUIT_GROUPE"] == produit_groupe else None
+            real_price_s3 = rows_to_update[i + 3]["PRIX_REEL_S"] if i + 3 < len(rows_to_update) and rows_to_update[i + 3]["PRODUIT_GROUPE"] == produit_groupe else None
 
-            # S+1 => DATE_INTERROGATION + 7 jours
-            if row["PRIX_REEL_S1"] is None:
-                date_s1 = date_lundi + timedelta(days=7)
-                real_price_s1 = self._find_real_price(df_sql, date_s1, col_name)
-            else:
-                real_price_s1 = row["PRIX_REEL_S1"]
-
-            # S+2 => DATE_INTERROGATION + 14 jours
-            if row["PRIX_REEL_S2"] is None:
-                date_s2 = date_lundi + timedelta(days=14)
-                real_price_s2 = self._find_real_price(df_sql, date_s2, col_name)
-            else:
-                real_price_s2 = row["PRIX_REEL_S2"]
-
-            # S+3 => DATE_INTERROGATION + 21 jours
-            if row["PRIX_REEL_S3"] is None:
-                date_s3 = date_lundi + timedelta(days=21)
-                real_price_s3 = self._find_real_price(df_sql, date_s3, col_name)
-            else:
-                real_price_s3 = row["PRIX_REEL_S3"]
-
-            # Calcul des variations réelles
-            var_s1 = self._calc_var_class_reelle(real_price_s1, row["PRIX_PREV_S1"]) if real_price_s1 else None
-            var_s2 = self._calc_var_class_reelle(real_price_s2, row["PRIX_PREV_S2"]) if real_price_s2 else None
-            var_s3 = self._calc_var_class_reelle(real_price_s3, row["PRIX_PREV_S3"]) if real_price_s3 else None
+            # Calcul des variations
+            var_s1 = self._calc_var_class_reelle(real_price_s1, real_price_s) if real_price_s1 else None
+            var_s2 = self._calc_var_class_reelle(real_price_s2, real_price_s) if real_price_s2 else None
+            var_s3 = self._calc_var_class_reelle(real_price_s3, real_price_s) if real_price_s3 else None
 
             updates.append({
                 "DATE_INTERROGATION": date_lundi,
@@ -186,26 +151,9 @@ class ModelInference:
                 "VAR_PRIX_REEL_S3": var_s3
             })
 
-        # === 4) Mise à jour en base des colonnes PRIX_REEL_Sx et VAR_PRIX_REEL_Sx ===
+        # Effectuer les mises à jour en base
         self._perform_updates_in_db(updates)
-        print(f"[update_reel_prices] {len(updates)} lignes mises à jour.")
-
-    def _find_real_price(self, df_sql, date_search, col_name):
-        """
-        Cherche dans df_sql la valeur de `col_name` pour la date `date_search`.
-        Retourne None si non trouvée ou NaN.
-        """
-        subset = df_sql.loc[df_sql['DATE_INTERROGATION'] == pd.to_datetime(date_search)]
-        if subset.empty:
-            return None
-
-        if col_name not in subset.columns:
-            return None
-
-        val = subset.iloc[0][col_name]
-        if pd.isna(val):
-            return None
-        return float(val)
+        print(f"[update_real_prices] {len(updates)} lignes mises à jour.")
 
     def _calc_var_class_reelle(self, real_price, prev_price):
         """
@@ -324,6 +272,12 @@ class ModelInference:
                 if self.check_existing_forecast(monday, product):
                     print(f"Prévision déjà existante pour {product} au {monday}. Ignorée.")
                     continue
+                #si prix_reel_s est null, on ne fait pas de prévision
+                current_price = self.get_current_price(self.trainer.df_complet, monday, col_name)
+
+                if current_price is None or current_price == '':
+                    print(f"Prix actuel introuvable pour {product} au {monday}. Prévisions non générées.")
+                    continue
 
                 # Étape 5 : Faire la prévision pour ce lundi
                 prix_s1, prix_s2, prix_s3 = self.predict_for_one_date(self.trainer.df_complet, monday, col_name)
@@ -333,17 +287,15 @@ class ModelInference:
                     continue
 
                 # Étape 6 : Calculer les variations
-                current_price = self.get_current_price(self.trainer.df_complet, monday, col_name)
-
-                if current_price is None:
-                    print(f"Prix actuel introuvable pour {product} au {monday}. Variations non calculées.")
-                    continue
-
                 var_s1 = self.trainer.variation_class(prix_s1 - current_price)
                 var_s2 = self.trainer.variation_class(prix_s2 - current_price)
                 var_s3 = self.trainer.variation_class(prix_s3 - current_price)
 
                 # Étape 7 : Insérer la prévision dans la table
+                saison = self.trainer.df_complet.loc[self.trainer.df_complet['DATE_INTERROGATION'] == pd.to_datetime(monday), 'SAISON'].values[0]
+                semaine_saison = self.trainer.df_complet.loc[self.trainer.df_complet['DATE_INTERROGATION'] == pd.to_datetime(monday), 'SEMAINE_SAISON'].values[0]
+                prix_reel_s = self.trainer.df_complet.loc[self.trainer.df_complet['DATE_INTERROGATION'] == pd.to_datetime(monday), col_name].values[0]
+                                
                 self.insert_forecasts_into_db(
                     date_interrogation=monday,
                     produit_groupe=product,
@@ -352,7 +304,11 @@ class ModelInference:
                     prix_s3=prix_s3,
                     var_s1=var_s1,
                     var_s2=var_s2,
-                    var_s3=var_s3
+                    var_s3=var_s3,
+                    saison=saison,
+                    semaine_saison=semaine_saison,
+                    prix_reel_s=prix_reel_s
+
                 )
 
                 print(f"Prévisions insérées pour {product} au {monday} : S+1={prix_s1:.2f}, S+2={prix_s2:.2f}, S+3={prix_s3:.2f}.")
@@ -399,12 +355,14 @@ class ModelInference:
         
         row = df.loc[df['DATE_INTERROGATION'] == pd.to_datetime(monday)]
         # aide moi a debugger en affichant la date et le produit
-        print(f"monday={monday}, col_name={col_name}")
-        print(f"row={row}")
-        
+        #print(f"monday={monday}, col_name={col_name}")
+        #print(f"row={row}")
 
         if not row.empty:
-            return row[col_name].values[0]
+            value = row[col_name].values[0]
+            if pd.isna(value) or value == '':
+                return None
+            return value
         return None
 
     def predict_for_one_date(self, df, date_target, col_name):
@@ -453,7 +411,7 @@ class ModelInference:
             print(f"[Erreur] Échec de la prédiction pour {col_name} au {date_target} : {e}")
             return None, None, None
 
-    def insert_forecasts_into_db(self, date_interrogation, produit_groupe, prix_s1, prix_s2, prix_s3, var_s1, var_s2, var_s3):
+    def insert_forecasts_into_db(self, date_interrogation, produit_groupe, prix_s1, prix_s2, prix_s3, var_s1, var_s2, var_s3, saison, semaine_saison,prix_reel_s):
         """
         Insère les prévisions de prix et leurs variations dans la table `previsions_prix`.
 
@@ -466,6 +424,9 @@ class ModelInference:
             var_s1 (int): Variation de prix pour S+1.
             var_s2 (int): Variation de prix pour S+2.
             var_s3 (int): Variation de prix pour S+3.
+            saison (int): Saison de la prévision.
+            semaine_saison (int): Semaine de la saison de la prévision.
+            prix_reel_s (float): Prix actuel du produit.
         """
         query = """
         INSERT INTO previsions_prix (
@@ -476,15 +437,21 @@ class ModelInference:
             "PRIX_PREV_S3", 
             "VAR_PRIX_PREV_S1", 
             "VAR_PRIX_PREV_S2", 
-            "VAR_PRIX_PREV_S3"
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            "VAR_PRIX_PREV_S3",
+            "SAISON",
+            "SEMAINE_SAISON",
+            "PRIX_REEL_S"
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT ("DATE_INTERROGATION", "PRODUIT_GROUPE") DO UPDATE SET
             "PRIX_PREV_S1" = EXCLUDED."PRIX_PREV_S1",
             "PRIX_PREV_S2" = EXCLUDED."PRIX_PREV_S2",
             "PRIX_PREV_S3" = EXCLUDED."PRIX_PREV_S3",
             "VAR_PRIX_PREV_S1" = EXCLUDED."VAR_PRIX_PREV_S1",
             "VAR_PRIX_PREV_S2" = EXCLUDED."VAR_PRIX_PREV_S2",
-            "VAR_PRIX_PREV_S3" = EXCLUDED."VAR_PRIX_PREV_S3";
+            "VAR_PRIX_PREV_S3" = EXCLUDED."VAR_PRIX_PREV_S3",
+            "SAISON" = EXCLUDED."SAISON",
+            "SEMAINE_SAISON" = EXCLUDED."SEMAINE_SAISON",
+            "PRIX_REEL_S" = EXCLUDED."PRIX_REEL_S";
         """
         conn = None
         try:
@@ -498,7 +465,10 @@ class ModelInference:
                     float(prix_s3) if prix_s3 is not None else None, 
                     int(var_s1) if var_s1 is not None else None, 
                     int(var_s2) if var_s2 is not None else None, 
-                    int(var_s3) if var_s3 is not None else None
+                    int(var_s3) if var_s3 is not None else None,
+                    int(saison) if saison is not None else None,
+                    int(semaine_saison) if semaine_saison is not None else None,
+                    float(prix_reel_s) if prix_reel_s is not None and not pd.isna(prix_reel_s) else None
                 ))
             conn.commit()
             print(f"[SUCCESS] Prévisions insérées/actualisées pour {produit_groupe} au {date_interrogation}.")

@@ -1,6 +1,14 @@
 import psycopg2
 import pandas as pd
 import warnings
+import os
+import sys
+
+from dotenv import load_dotenv
+
+load_dotenv()  # charge .env
+DATA_RAW_DIR = os.getenv("DATA_RAW_DIR")
+DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
 
 # Désactiver les warnings spécifiques à Pandas
 warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
@@ -199,7 +207,7 @@ class ApplePriceDataLoader:
         (export / import / prix moyen ...), décalées de 3 mois pour aligner les périodes.
         """
         # 1) Lecture du fichier CSV
-        df_trade = pd.read_csv('/app/data/raw/EU_APPLES_trade_data_en.csv')
+        df_trade = pd.read_csv(os.path.join(DATA_RAW_DIR,"EU_APPLES_trade_data_en.csv"))
 
         # 2) Préparation des données
         df_trade['Marketing Year'] = df_trade['Marketing Year'].apply(lambda x: x.split('/')[0])
@@ -261,7 +269,7 @@ class ApplePriceDataLoader:
         issues du fichier APPLE_SHORT_TERM_OUTLOOK.xlsx.
         """
         # Charger les données depuis le fichier Excel
-        file_path = '/app/data/raw/APPLE_SHORT_TERM_OUTLOOK.xlsx'
+        file_path = os.path.join(DATA_RAW_DIR, "APPLE_SHORT_TERM_OUTLOOK.xlsx")
         df_prev = pd.read_excel(file_path)
 
         # Transposer les données
@@ -576,7 +584,7 @@ if __name__ == '__main__':
     #df_complet.reset_index(inplace=True)
 
     # 5) Export des 100 premières lignes vers Excel
-    output_path = '/app/tests/df_complet_sample.xlsx'
+    output_path = os.path.join(DATA_OUTPUT_DIR,"df_complet_sample.xlsx")
     df_complet.head(100).to_excel(output_path, index=False)
     print(f"Les 100 premières lignes ont été exportées vers {output_path}")
 

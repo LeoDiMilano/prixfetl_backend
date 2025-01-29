@@ -1,23 +1,53 @@
-from flask import Blueprint, request, jsonify
-from services.inference import ModelInference
-import pandas as pd
+import os
+from flask import Blueprint, jsonify
+from ..db import fetch_all
+from .decorators import require_token # Import require_token depuis routers.decorators
 
-predict_bp = Blueprint('predict_bp', __name__)
+predict_bp = Blueprint('predict', __name__)
 
-# Crée une instance unique ou dynamique
-model_inference = ModelInference(model_path='model_storage/xgb_model.joblib')
-
-@predict_bp.route('/predict', methods=['POST'])
-def predict():
+@predict_bp.route('/predict', methods=['GET'])
+@require_token
+def get_predict():
     """
-    Endpoint pour obtenir la prédiction de la variation de prix
+    GET /api/predict
+    
+    Pour chaque produit listé dans liste_produit_groupe.txt, 
+    renvoie la dernière date disponible et les variations prévues.
+    Colonnes renvoyées :
+      - "PRODUIT_GROUPE"
+      - "DATE_INTERROGATION"
+      - "PRIX_REEL_S"
+      - "VAR_PRIX_PREV_S1"
+      - "VAR_PRIX_PREV_S2"
+      - "VAR_PRIX_PREV_S3"
     """
-    input_data = request.get_json()  # ex: { "features": { "col1": ..., "col2": ...} }
-    df_features = pd.DataFrame([input_data["features"]])  # transformer en DataFrame
 
-    prediction = model_inference.predict_variation(df_features)
-    # post-processing => transformer la classe 0,1,2,3,4 en '--','-','S','+','++'
-    labels = ['--', '-', 'S', '+', '++']
-    predicted_label = labels[prediction[0]]  # ex. 2 => 'S'
+    # 1) Lecture du fichier liste_produit_groupe.txt
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'liste_produit_groupe.txt')
+    products = []
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                products.append(line.strip())
+    except Exception as e:
+        return jsonify({"message": f"Erreur lors de la lecture du fichier: {e}"}), 500
 
-    return jsonify({"prediction": predicted_label})
+    # 2) Récupération des données depuis la base de données
+    query = """
+        SELECT 
+            "DATE_INTERROGATION",
+            "PRODUIT_GROUPE",
+            "PRIX_REEL_S",
+            "VAR_PRIX_PREV_S1",
+            "VAR_PRIX_PREV_S2",
+            "VAR_PRIX_PREV_S3"
+        FROM previsions_prix
+        WHERE "PRODUIT_GROUPE" IN %s
+          AND "DATE_INTERROGATION" = (SELECT MAX("DATE_INTERROGATION") FROM previsions_prix)
+    """
+    try:
+        data = fetch_all(query, (tuple(products),))
+    except Exception as e:
+        return jsonify({"message": f"Erreur lors de la récupération des données: {e}"}), 500
+
+    return jsonify(data)

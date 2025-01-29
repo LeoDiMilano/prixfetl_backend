@@ -6,13 +6,19 @@ import numpy as np
 import pandas as pd
 import re
 import matplotlib.pyplot as plt
-
+import sys 
 from xgboost import XGBRegressor
 from sklearn.feature_selection import RFE
 from datetime import date
 import psycopg2
 # On importe la classe qui prépare et charge les données
 from data_preprocessing import ApplePriceDataLoader
+
+from dotenv import load_dotenv
+
+load_dotenv()  # charge .env
+DATA_RAW_DIR = os.getenv("DATA_RAW_DIR")
+DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
 
 warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
@@ -139,7 +145,7 @@ class PriceTrainer:
         y_train_filtered = y_train_s1[mask_s1]
 
         os.makedirs("tests", exist_ok=True)
-        with pd.ExcelWriter("tests/4_train_data_filtered.xlsx") as writer:
+        with pd.ExcelWriter(os.path.join(DATA_OUTPUT_DIR, "4_train_data_filtered.xlsx")) as writer:
             X_train_filtered.T.to_excel(writer, sheet_name="X_train_filtered", header=False)
             y_train_filtered.T.to_excel(writer, sheet_name="y_train_filtered", header=False)
 
@@ -189,7 +195,7 @@ class PriceTrainer:
 
         # Debug : export train
         os.makedirs("tests", exist_ok=True)
-        with pd.ExcelWriter("tests/2_train_data.xlsx") as writer:
+        with pd.ExcelWriter(os.path.join(DATA_OUTPUT_DIR, "2_train_data.xlsx")) as writer:
             X_train.to_excel(writer, sheet_name="X_train", index=False)
             y_train_s1.to_excel(writer, sheet_name="y_train_s1", index=False)
             y_train_s2.to_excel(writer, sheet_name="y_train_s2", index=False)
@@ -202,7 +208,7 @@ class PriceTrainer:
         y_test_s3 = df_test[target_s3].copy()
 
         # Debug : export test
-        with pd.ExcelWriter("tests/3_test_data.xlsx") as writer:
+        with pd.ExcelWriter(os.path.join(DATA_OUTPUT_DIR, "3_test_data.xlsx")) as writer:
             X_test.to_excel(writer, sheet_name="X_test", index=False)
             y_test_s1.to_excel(writer, sheet_name="y_test_s1", index=False)
             y_test_s2.to_excel(writer, sheet_name="y_test_s2", index=False)
@@ -260,7 +266,7 @@ class PriceTrainer:
         df_test_copy['PRED_S2'] = pred_s2
         df_test_copy['PRED_S3'] = pred_s3
         
-        with pd.ExcelWriter(f"tests/5_predictions_{sanitized_price_col}.xlsx") as writer:
+        with pd.ExcelWriter(os.path.join(DATA_OUTPUT_DIR, f"5_predictions_{sanitized_price_col}.xlsx")) as writer:
             df_test_copy[['DATE_INTERROGATION', price_col, target_s1, target_s2, target_s3]] \
                 .to_excel(writer, sheet_name="Valeurs réelles", index=False)
             df_test_copy[['DATE_INTERROGATION', 'PRED_S1', 'PRED_S2', 'PRED_S3']] \
