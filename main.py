@@ -14,7 +14,67 @@ from log_utils import setup_logging
 import logging
 logger = logging.getLogger(__name__)
 
+routers_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "routers")
+if routers_path not in sys.path:
+    sys.path.append(routers_path)
+
+from flask import Flask, request, jsonify
+from routers.history import history_bp
+from routers.config import config_bp
+from routers.predict import predict_bp
+from flask_cors import CORS
+from functools import wraps
+# from .utils import require_token  <--  On ne l'importe plus ici
+# from .decorators import require_token
+from routers.decorators import require_token # <-- Import correct
+
+#API_TOKEN_SECRET = os.environ.get("API_SECRET_TOKEN", "e67d89305f2763bd4920bb0deda2e33467a9154522a99f5a6268e1a222ab9e75")
 load_dotenv()  # charge les variables depuis .env
+
+# Nouvelle fonction pour appliquer le décorateur aux vues.
+def apply_token_auth():
+    def before_request():
+        # Récupérer la vue
+        view = request.endpoint
+        if view not in history_bp.view_functions and view not in predict_bp.view_functions:
+           return
+        token = request.headers.get('Authorization')
+        if not token or token != f'Bearer {API_TOKEN_SECRET}':
+            return jsonify({'error': 'Unauthorized'}), 401
+            
+    return before_request
+
+
+def create_app():
+    app = Flask(__name__)
+
+    # 2) Configurer CORS pour autoriser ton/tes domaines
+    #    Tu peux bien sûr en rajouter ou mettre "*" si tu préfères
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": [
+                "https://intellibooster.com",
+                "https://www.intellibooster.com",
+                "https://www.intelliboost.fr",
+                "https://api.intellibooster.com"
+            ]
+        }
+    })
+
+    # 3) Appliquer le décorateur "require_token" avant chaque requête
+    #    sur certains blueprints (ex: history, predict).
+    #    Si tu veux protéger config_bp aussi, ajoute-le. Sinon, laisse-le libre.
+    app.before_request(apply_token_auth())
+
+    # 4) Enregistrer les blueprints
+    app.register_blueprint(history_bp, url_prefix='/api')
+    app.register_blueprint(config_bp, url_prefix='/api')
+    app.register_blueprint(predict_bp, url_prefix='/api')
+
+    return app
+
+
+
 
 db_config = {
     "host": os.getenv("POSTGRES_HOST"),
@@ -30,17 +90,19 @@ DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
 def main():
     # Étape 1) Mise à jour des données brutes (ETL / ingestion)
     print("=== 1) Mise à jour des données météo ===")
-    #subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
+    subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
 
     print("=== 2) Mise à jour des cotations RNM ===")
-    #subprocess.run(["python", "/app/services/2_maj_COTATIONS_RNM_JOURNALIERES.py"], check=True)
+    subprocess.run(["python", "/app/services/2_maj_COTATIONS_RNM_JOURNALIERES.py"], check=True)
 
     print("=== 3) Mise à jour des données AGRIDATA (trade) ===")
-    #subprocess.run(["python", "/app/services/3_maj_AGRIDATA_EU_APPLES_trade_data.py"], check=True)
+    subprocess.run(["python", "/app/services/3_maj_AGRIDATA_EU_APPLES_trade_data.py"], check=True)
+
+    print("=== 4) Mise à jour des données de Vacances - sauté ===")
+    #subprocess.run(["python", "/app/services/4_maj_VACANCES.py"], check=True)
 
     # Étape 2) Préprocessing (construction du DataFrame global)
-    print("=== 4) Exécution du script data_preprocessing ===")
-    
+    print("=== 5) Exécution du script data_preprocessing ===")
     subprocess.run(["python", "/app/services/data_preprocessing.py"], check=True)
 
      # Lecture de la liste de produits depuis le fichier 'liste_produit_groupe.txt'
@@ -59,23 +121,28 @@ def main():
         ]
 
     # (A) Entraînement
-    print("=== 5) Entraînement des modèles ===")
+    print("=== 6) Entraînement des modèles ===")
     trainer = PriceTrainer(db_config)
     trainer.run_full_training(list_of_products)
 
+    print("=== 7) Inférence ===")
     # (B) Inférence
     inference_engine = ModelInference(db_config, trainer)
 
     # 1) Insertion des nouvelles prévisions (pour les semaines à venir)
-    print("=== 6) Insertion des prévisions pour les lundis manquants ===")
+    print("=== 8) Insertion des prévisions pour les lundis manquants ===")
     inference_engine.fill_previsions_for_missing_mondays(list_of_products)
 
     # 2) Mise à jour des prix réels (pour les semaines passées)
-    print("=== 7) Mise à jour des prix réels (S+1, S+2, S+3) ===")
+    print("=== 9) Mise à jour des prix réels (S+1, S+2, S+3) ===")
     inference_engine.update_real_prices()
 
     print("\n=== Fin du script principal ===")
 
 
 if __name__ == "__main__":
-    main()
+    if '--cron' in sys.argv:
+        main()  # Exécute le pipeline de mise à jour
+    else:
+        my_app = create_app()
+        my_app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
