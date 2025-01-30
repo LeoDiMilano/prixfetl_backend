@@ -1,6 +1,6 @@
 import os
 from flask import Blueprint, jsonify
-from ..db import fetch_all
+from db import fetch_all
 from .decorators import require_token # Import require_token depuis routers.decorators
 
 predict_bp = Blueprint('predict', __name__)
