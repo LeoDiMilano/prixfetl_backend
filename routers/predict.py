@@ -44,6 +44,7 @@ def get_predict():
         FROM previsions_prix
         WHERE "PRODUIT_GROUPE" IN %s
           AND "DATE_INTERROGATION" = (SELECT MAX("DATE_INTERROGATION") FROM previsions_prix)
+          ORDER BY "PRODUIT_GROUPE";
     """
     try:
         data = fetch_all(query, (tuple(products),))

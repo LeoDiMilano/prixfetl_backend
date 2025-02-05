@@ -127,7 +127,7 @@ def main():
     # (A) Entraînement
     print("=== 6) Entraînement des modèles ===")
     trainer = PriceTrainer(db_config)
-    trainer.run_full_training(list_of_products, date(2024, 8, 5))
+    trainer.run_full_training(list_of_products, date(2024, 7, 29))
 
     print("=== 7) Inférence ===")
     # (B) Inférence
