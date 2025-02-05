@@ -24,6 +24,7 @@ DATA_OUTPUT_PROCESSED_DIR = os.getenv("DATA_OUTPUT_PROCESSED_DIR")
 
 warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
+from xgboost import XGBClassifier
 
 class PriceTrainer:
     def __init__(self, db_config):
@@ -42,17 +43,17 @@ class PriceTrainer:
 
         # Paramètres du modèle XGB (communs à chaque horizon de prévision)
         self.model_params = {
-            'n_estimators': 500,
-            'learning_rate': 0.3,
-            'max_depth': 6,
-            'min_child_weight': 1,
-            'gamma': 0,
-            'subsample': 0.8,
-            'colsample_bytree': 1,
-            'objective': 'reg:squarederror',
-            'nthread': 4,
-            'scale_pos_weight': 2,
-            'seed': 0
+            "n_estimators": 350000,         # Nombre d'arbres
+            "learning_rate": 0.05,       # Taux d'apprentissage (plus bas = meilleur, mais plus lent)
+            "max_depth": 6,              # Profondeur maximale des arbres (5-8 est souvent optimal)
+            "subsample": 0.8,            # Pourcentage d'échantillons utilisés par arbre (évite l'overfitting)
+            "colsample_bytree": 1,     # Pourcentage de features utilisées par arbre
+            "gamma": 0,                # Prune les branches peu utiles (évite l'overfitting)
+            "reg_alpha": 0.1,            # Régularisation L1 (sparse features)
+            "reg_lambda": 1,             # Régularisation L2 (évite l'overfitting)
+            "objective": "binary:logistic",  # Classification binaire (ajuste pour multi-classes)
+            "eval_metric": "logloss",    # Métrique de classification (logloss = cross-entropy loss)
+            "use_label_encoder": False   # Évite un warning inutile
         }
         # Dictionnaire où l'on stocke les modèles entraînés : self.models[(col_name, 'S+1')] = ...
         self.models = {}
@@ -144,6 +145,17 @@ class PriceTrainer:
         df[f"{price_col}_S+1"] = df[price_col].shift(-1)
         df[f"{price_col}_S+2"] = df[price_col].shift(-2)
         df[f"{price_col}_S+3"] = df[price_col].shift(-3)
+        
+        # Créer les classes de variation
+        df[f"{price_col}_S+1_class"] = df[f"{price_col}_S+1"].pct_change().apply(self.variation_class)
+        df[f"{price_col}_S+2_class"] = df[f"{price_col}_S+2"].pct_change().apply(self.variation_class)
+        df[f"{price_col}_S+3_class"] = df[f"{price_col}_S+3"].pct_change().apply(self.variation_class)
+        
+        # Mapper les classes de [-2, -1, 0, 1, 2] à [0, 1, 2, 3, 4]
+        df[f"{price_col}_S+1_class"] = df[f"{price_col}_S+1_class"].map({-2: 0, -1: 1, 0: 2, 1: 3, 2: 4})
+        df[f"{price_col}_S+2_class"] = df[f"{price_col}_S+2_class"].map({-2: 0, -1: 1, 0: 2, 1: 3, 2: 4})
+        df[f"{price_col}_S+3_class"] = df[f"{price_col}_S+3_class"].map({-2: 0, -1: 1, 0: 2, 1: 3, 2: 4})
+        
         return df
 
     def train_model_s1_with_rfe(self, X_train, y_train_s1):
@@ -162,7 +174,7 @@ class PriceTrainer:
         print(f"Taille des données après filtrage : {X_train_filtered.shape}, {y_train_filtered.shape}")
         print(f"Nombre de features avant optimisation : {X_train_filtered.shape[1]}")
 
-        xgb_estimator = XGBRegressor(**self.model_params)
+        xgb_estimator = XGBClassifier(**self.model_params)
 
         rfe = RFE(
             estimator=xgb_estimator,
@@ -196,13 +208,14 @@ class PriceTrainer:
         df_train = df[df['DATE_INTERROGATION'] < split_date].copy()
         df_test = df[df['DATE_INTERROGATION'] >= split_date].copy()
 
-        target_s1 = f"{price_col}_S+1"
-        target_s2 = f"{price_col}_S+2"
-        target_s3 = f"{price_col}_S+3"
+        target_s1 = f"{price_col}_S+1_class"
+        target_s2 = f"{price_col}_S+2_class"
+        target_s3 = f"{price_col}_S+3_class"
 
         cols_to_remove = [
             'DATE_INTERROGATION', 'ANNEE', 'SEMAINE',
-            target_s1, target_s2, target_s3
+            target_s1, target_s2, target_s3,
+            f"{price_col}_S+1", f"{price_col}_S+2", f"{price_col}_S+3"
         ]
         X_cols = [c for c in df.columns if c not in cols_to_remove]
 
@@ -249,7 +262,7 @@ class PriceTrainer:
             pred_s1 = []
 
         # (B) S+2
-        model_s2 = XGBRegressor(**self.model_params)
+        model_s2 = XGBClassifier(**self.model_params)
         mask_s2 = y_train_s2.notnull()
         model_s2.fit(X_train[selected_features_s1][mask_s2], y_train_s2[mask_s2])
         self.models[(price_col, 'S+2')] = model_s2
@@ -262,7 +275,7 @@ class PriceTrainer:
             pred_s2 = []
 
         # (C) S+3
-        model_s3 = XGBRegressor(**self.model_params)
+        model_s3 = XGBClassifier(**self.model_params)
         mask_s3 = y_train_s3.notnull()
         model_s3.fit(X_train[selected_features_s1][mask_s3], y_train_s3[mask_s3])
         self.models[(price_col, 'S+3')] = model_s3
@@ -277,12 +290,12 @@ class PriceTrainer:
         # Sauvegarde de la liste de features
         self.selected_features_for_column[price_col] = selected_features_s1
 
-        # Exporter les prédictions vs réelles
         sanitized_price_col = re.sub(r'\W+', '_', price_col)
+        # Mapper les prédictions de [0, 1, 2, 3, 4] à [-2, -1, 0, 1, 2]
         df_test_copy = df_test.copy()
-        df_test_copy['PRED_S1'] = pred_s1
-        df_test_copy['PRED_S2'] = pred_s2
-        df_test_copy['PRED_S3'] = pred_s3
+        df_test_copy['PRED_S1'] = [self.map_prediction(p) for p in pred_s1]
+        df_test_copy['PRED_S2'] = [self.map_prediction(p) for p in pred_s2]
+        df_test_copy['PRED_S3'] = [self.map_prediction(p) for p in pred_s3]
         
         with pd.ExcelWriter(os.path.join(DATA_OUTPUT_DIR, f"5_predictions_{sanitized_price_col}.xlsx")) as writer:
             df_test_copy[['DATE_INTERROGATION', price_col, target_s1, target_s2, target_s3]] \
@@ -295,23 +308,29 @@ class PriceTrainer:
             fig, ax = plt.subplots(3, 1, figsize=(12, 12))
             
             ax[0].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy[price_col], label='Valeurs réelles')
-            ax[0].plot(df_test_copy['DATE_INTERROGATION'], pred_s1, label='Prédictions S+1')
+            ax[0].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy['PRED_S1'], label='Prédictions S+1')
             ax[0].set_title(f"Prédictions pour {price_col} - S+1")
             ax[0].legend()
 
             ax[1].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy[price_col], label='Valeurs réelles')
-            ax[1].plot(df_test_copy['DATE_INTERROGATION'], pred_s2, label='Prédictions S+2')
+            ax[1].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy['PRED_S2'], label='Prédictions S+2')
             ax[1].set_title(f"Prédictions pour {price_col} - S+2")
             ax[1].legend()
 
             ax[2].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy[price_col], label='Valeurs réelles')
-            ax[2].plot(df_test_copy['DATE_INTERROGATION'], pred_s3, label='Prédictions S+3')
+            ax[2].plot(df_test_copy['DATE_INTERROGATION'], df_test_copy['PRED_S3'], label='Prédictions S+3')
             ax[2].set_title(f"Prédictions pour {price_col} - S+3")
             ax[2].legend()
 
             plt.tight_layout()
             plt.savefig(f"tests/6_predictions_{sanitized_price_col}.png")
             plt.close()
+    def map_prediction(self, prediction):
+        """
+        Mappe les prédictions de [0, 1, 2, 3, 4] à [-2, -1, 0, 1, 2].
+        """
+        mapping = {0: -2, 1: -1, 2: 0, 3: 1, 4: 2}
+        return mapping.get(prediction, 0)
 
     def export_feature_importances(self, list_of_products):
         """

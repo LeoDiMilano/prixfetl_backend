@@ -402,14 +402,57 @@ class ModelInference:
                 return None, None, None
 
             # Prédire pour les horizons S+1, S+2 et S+3
-            prix_s1 = self.trainer.models[(col_name, 'S+1')].predict(X)[0]
-            prix_s2 = self.trainer.models[(col_name, 'S+2')].predict(X)[0]
-            prix_s3 = self.trainer.models[(col_name, 'S+3')].predict(X)[0]
+            pred_s1 = self.trainer.models[(col_name, 'S+1')].predict(X)[0]
+            pred_s2 = self.trainer.models[(col_name, 'S+2')].predict(X)[0]
+            pred_s3 = self.trainer.models[(col_name, 'S+3')].predict(X)[0]
+
+            # Mapper les prédictions de [0, 1, 2, 3, 4] à [-2, -1, 0, 1, 2]
+            pred_s1 = self.map_prediction(pred_s1)
+            pred_s2 = self.map_prediction(pred_s2)
+            pred_s3 = self.map_prediction(pred_s3)
+
+            # Calculer les prix prévus en utilisant les valeurs centrales des classes de variation
+            current_price = X[col_name].values[0]
+            prix_s1 = self.calculate_predicted_price(current_price, pred_s1)
+            prix_s2 = self.calculate_predicted_price(current_price, pred_s2)
+            prix_s3 = self.calculate_predicted_price(current_price, pred_s3)
 
             return prix_s1, prix_s2, prix_s3
         except Exception as e:
             print(f"[Erreur] Échec de la prédiction pour {col_name} au {date_target} : {e}")
             return None, None, None
+
+    def map_prediction(self, prediction):
+        """
+        Mappe les prédictions de [0, 1, 2, 3, 4] à [-2, -1, 0, 1, 2].
+        """
+        mapping = {0: -2, 1: -1, 2: 0, 3: 1, 4: 2}
+        return mapping.get(prediction, 0)
+
+    def calculate_predicted_price(self, current_price, prediction):
+        """
+        Calcule le prix prévu en utilisant la valeur centrale de la classe de variation.
+
+        Args:
+            current_price (float): Le prix actuel.
+            prediction (int): La classe de variation prédite.
+
+        Returns:
+            float: Le prix prévu.
+        """
+        if prediction == 2:
+            return current_price + 0.05
+        elif prediction == 1:
+            return current_price + 0.02
+        elif prediction == 0:
+            return current_price
+        elif prediction == -1:
+            return current_price - 0.02
+        elif prediction == -2:
+            return current_price - 0.05
+        else:
+            return current_price
+
 
     def insert_forecasts_into_db(self, date_interrogation, produit_groupe, prix_s1, prix_s2, prix_s3, var_s1, var_s2, var_s3, saison, semaine_saison,prix_reel_s):
         """
