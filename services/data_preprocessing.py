@@ -47,7 +47,47 @@ class ApplePriceDataLoader:
         (on implémentera le corps de cette méthode plus tard)
         """
         query = """
-        SELECT 
+		WITH COTATIONS AS
+		(
+			SELECT
+				prix_jour,
+				libelle_produit,
+				stade,
+				marche,
+				DATE_INTERROGATION,
+	            EXTRACT(YEAR FROM DATE_INTERROGATION) AS "ANNEE",
+				SEMAINE ,
+	            SAISON ,
+	            CASE 
+	                WHEN TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER < 8 
+	                THEN (TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER + 12 - 7) 
+	                ELSE (TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER - 7) 
+	            END AS "MOIS_SAISON",
+	            SEMAINE_SAISON
+			FROM cotations_rnm_journalieres c
+			UNION ALL
+			SELECT 
+				prix_jour,
+				libelle_produit,
+				stade,
+				marche,
+				DATE_INTERROGATION ,
+	            EXTRACT(YEAR FROM DATE_INTERROGATION) AS "ANNEE",
+				SEMAINE ,
+	            SAISON ,
+	            CASE 
+	                WHEN TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER < 8 
+	                THEN (TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER + 12 - 7) 
+	                ELSE (TO_CHAR((DATE_INTERROGATION::DATE + INTERVAL '1 day'), 'MM')::INTEGER - 7) 
+	            END AS "MOIS_SAISON",
+	            SEMAINE_SAISON AS "SEMAINE_SAISON"
+			FROM cotations_wiescirolnicze w
+			WHERE UNITE = '1 kg'
+			
+		)
+
+
+		SELECT 
             c.DATE_INTERROGATION AS "DATE_INTERROGATION",
             EXTRACT(YEAR FROM c.DATE_INTERROGATION) AS "ANNEE",
 			c.SEMAINE AS "SEMAINE",
@@ -59,6 +99,7 @@ class ApplePriceDataLoader:
             END AS "MOIS_SAISON",
             c.SEMAINE_SAISON AS "SEMAINE_SAISON",
             CASE WHEN (b.INDICATEUR_VACANCES IS NULL) THEN 0 ELSE b.INDICATEUR_VACANCES END AS "VACANCES_INDICATEUR_S",
+			
 			AVG(CASE WHEN p.produit_groupe = 'DET BANANE AFRIQUE-AMERIQUE' THEN c.prix_jour END) AS "PRIX DET BANANE AFRIQUE-AMERIQUE",
 			AVG(CASE WHEN p.produit_groupe = 'DET BANANE FRANCE' THEN c.prix_jour END) AS "PRIX DET BANANE FRANCE",
 			AVG(CASE WHEN p.produit_groupe = 'DET KIWI VERT  FRANCE' THEN c.prix_jour END) AS "PRIX DET KIWI VERT  FRANCE",
@@ -170,9 +211,17 @@ class ApplePriceDataLoader:
 			AVG(CASE WHEN p.produit_groupe = 'PRO POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG' THEN c.prix_jour END) AS "PRIX PRO POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG",
 			AVG(CASE WHEN p.produit_groupe = 'PRO POMME GOLDEN FRANCE 136/200G CAT.I CAISSE' THEN c.prix_jour END) AS "PRIX PRO POMME GOLDEN FRANCE 136/200G CAT.I CAISSE",
 			AVG(CASE WHEN p.produit_groupe = 'PRO POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 2RG' THEN c.prix_jour END) AS "PRIX PRO POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 2RG",
-			AVG(CASE WHEN p.produit_groupe = 'PRO POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG' THEN c.prix_jour END) AS "PRIX PRO POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG"
-		
-			FROM cotations_rnm_journalieres c
+			AVG(CASE WHEN p.produit_groupe = 'PRO POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG' THEN c.prix_jour END) AS "PRIX PRO POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG",
+
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME GALA PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME GALA PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME GOLDEN-DELICIUS PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME GOLDEN-DELICIUS PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME JABLKA PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME JABLKA PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME JONAGOLD PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME JONAGOLD PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME JONAGORED PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME JONAGORED PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME LIGOL PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME LIGOL PL",
+			AVG(CASE WHEN p.produit_groupe = 'MARCHE_PL POMME SZAMPION PL' THEN c.prix_jour END) AS "PRIX MARCHE_PL POMME SZAMPION PL"
+
+			FROM COTATIONS c
             LEFT OUTER JOIN produit_marche_stade p on p.libelle_produit = c.libelle_produit and p.stade = c.stade and p.marche = c.marche
             LEFT OUTER JOIN VACANCES_JOURS_FERIES b ON b.SAISON = c.SAISON AND b.SEMAINE_SAISON = c.SEMAINE_SAISON
         WHERE c.SEMAINE_SAISON <=43
@@ -186,7 +235,7 @@ class ApplePriceDataLoader:
             END,
             c.SEMAINE_SAISON, c.SEMAINE,
             CASE WHEN (b.INDICATEUR_VACANCES IS NULL) THEN 0 ELSE b.INDICATEUR_VACANCES END
-		ORDER BY 1        """ 
+		ORDER BY 1 """ 
        
         conn = self.get_postgres_connection()
         try:

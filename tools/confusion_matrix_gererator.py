@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ class ConfusionMatrixGenerator:
         Le constructeur lit immédiatement les variables d'environnement et 
         prépare la config DB, le chemin de sortie pour les PNG, et la liste de produits.
         """
-         # Charger les variables d'environnement
+        # Charger les variables d'environnement
         load_dotenv()
         # 1) Charger la config DB via les variables d'environnement
         self.db_config = {
@@ -71,17 +71,18 @@ class ConfusionMatrixGenerator:
         """
         return re.sub(r"[^\w]+", "_", product_name)
 
-    def _plot_and_save_confusions(self, cm_s1, cm_s2, cm_s3, product, season):
+    def _plot_and_save_confusions(self, cm_s1, cm_s2, cm_s3, product, season, report_s1, report_s2, report_s3):
         """
-        Construit et sauvegarde un PNG avec 3 sous-graphes (S+1, S+2, S+3).
+        Construit et sauvegarde un PNG avec 3 sous-graphes (S+1, S+2, S+3) et les rapports de classification.
         """
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+        fig, axes = plt.subplots(3, 2, figsize=(20, 15))
         all_labels = [-2, -1, 0, 1, 2]
         horizons = ["S+1", "S+2", "S+3"]
         cms = [cm_s1, cm_s2, cm_s3]
+        reports = [report_s1, report_s2, report_s3]
 
-        for i, (cm, horizon) in enumerate(zip(cms, horizons)):
-            ax = axes[i]
+        for i, (cm, report, horizon) in enumerate(zip(cms, reports, horizons)):
+            ax = axes[i, 0]
             im = ax.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
             ax.set_title(f"Matrice de confusion {horizon}")
             ax.set_xlabel("Prévision")
@@ -98,6 +99,11 @@ class ConfusionMatrixGenerator:
                         color="white" if val > cm.max()/2. else "black")
 
             fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+
+            # Ajouter le rapport de classification
+            ax_report = axes[i, 1]
+            ax_report.axis('off')
+            ax_report.text(0.01, 0.5, report, fontsize=12, verticalalignment='center', family='monospace')
 
         fig.suptitle(f"{product} (Saison {season})", fontsize=16)
 
@@ -134,7 +140,8 @@ class ConfusionMatrixGenerator:
             "VAR_PRIX_REEL_S1", "VAR_PRIX_REEL_S2", "VAR_PRIX_REEL_S3"
         FROM previsions_prix
         WHERE "SAISON" = %s
-            AND "PRIX_REEL_S" IS NOT NULL
+        AND "VAR_PRIX_PREV_S1" IS NOT NULL
+        AND "VAR_PRIX_REEL_S1" IS NOT NULL
         ORDER BY "PRODUIT_GROUPE", "DATE_INTERROGATION";
         """
 
@@ -179,6 +186,12 @@ class ConfusionMatrixGenerator:
                 y_pred_s1.loc[common_idx_s1],
                 labels=all_labels
             )
+            report_s1 = classification_report(
+                y_true_s1.loc[common_idx_s1],
+                y_pred_s1.loc[common_idx_s1],
+                labels=all_labels,
+                target_names=[str(label) for label in all_labels]
+            )
 
             # S+2
             y_pred_s2 = df_prod["VAR_PRIX_PREV_S2"].dropna()
@@ -188,6 +201,12 @@ class ConfusionMatrixGenerator:
                 y_true_s2.loc[common_idx_s2],
                 y_pred_s2.loc[common_idx_s2],
                 labels=all_labels
+            )
+            report_s2 = classification_report(
+                y_true_s2.loc[common_idx_s2],
+                y_pred_s2.loc[common_idx_s2],
+                labels=all_labels,
+                target_names=[str(label) for label in all_labels]
             )
 
             # S+3
@@ -199,6 +218,12 @@ class ConfusionMatrixGenerator:
                 y_pred_s3.loc[common_idx_s3],
                 labels=all_labels
             )
+            report_s3 = classification_report(
+                y_true_s3.loc[common_idx_s3],
+                y_pred_s3.loc[common_idx_s3],
+                labels=all_labels,
+                target_names=[str(label) for label in all_labels]
+            )
 
             confusion_results[product] = {
                 "S+1": cm_s1,
@@ -207,7 +232,7 @@ class ConfusionMatrixGenerator:
             }
 
             # Génère et sauvegarde un PNG
-            self._plot_and_save_confusions(cm_s1, cm_s2, cm_s3, product, season)
+            self._plot_and_save_confusions(cm_s1, cm_s2, cm_s3, product, season, report_s1, report_s2, report_s3)
 
         logger.info(f"Matrices de confusion générées pour la saison {season}, total produits: {len(confusion_results)}")
         return confusion_results

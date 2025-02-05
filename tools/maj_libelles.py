@@ -42,12 +42,29 @@ class P_M_S_Updater:
 
     @staticmethod
     def extraire_espece(libelle):
-        return libelle.split(' ')[0] if libelle else ''
+        # si le libelle commence par jab, on retourne POMME
+        if re.match(r'jab', libelle):
+            return 'POMME'
+        else:
+            return libelle.split(' ')[0] if libelle else ''
 
     @staticmethod
     def extraire_variete(libelle):
-        mots = libelle.split(' ')
-        return mots[1].upper() if len(mots) > 1 else ''
+        # si le libelle commence par jab, on on cherche le texte entre le premier - et _ en majuscule
+        if re.match(r'jab', libelle):
+            pos_sep = libelle.find('-')
+            pos_underscore = libelle.find('_')
+            if pos_sep != -1 and pos_underscore != -1:
+                return libelle[pos_sep + 1:pos_underscore].upper()
+            elif pos_sep != -1:
+                return libelle[pos_sep + 1:].upper()
+            elif pos_underscore != -1:
+                return libelle[:pos_underscore].upper()
+            else:
+                return ''
+        else:
+            mots = libelle.split(' ')
+            return mots[1].upper() if len(mots) > 1 else ''
 
     @staticmethod
     def extraire_emballage(libelle):
@@ -89,46 +106,60 @@ class P_M_S_Updater:
 
     @staticmethod
     def extraire_origine(libelle):
-        if any(kw in libelle for kw in ['France', 'DOM','Sud-Est', 'Corse', 'Val de Loire', 'Roussillon','Martinique', 'Guadeloupe',
-            'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie','Centre-Ouest','Limousin','Deux-Sèvres','Nord-Picardie']):
-            return 'FRANCE'
-        if 'Nouvelle-Zélande' in libelle:
-            return 'NZ'
-        if 'Grèce' in libelle:
-            return 'GRECE'
-        if 'Afrique' in libelle:
-            return 'AFRIQUE'
-        if 'Espagne' in libelle:
-            return 'ESPAGNE'
-        if 'Maroc' in libelle:
-            return 'MAROC'
-        if 'Portugal' in libelle:
-            return 'PORTUGAL'
-        if 'Amérique' in libelle:
-            return 'AMERIQUE'
-        if 'Allemagne' in libelle:
-            return 'ALLEMAGNE'
-        if 'Italie' in libelle:
-            return 'ITALIE'
-        if 'U.E.' in libelle:
-            return 'UE'
-        if 'Tunisie' in libelle:
-            return 'TUNISIE'
-        if 'Chili' in libelle:
-            return 'CHILI'
-        if 'Israël' in libelle:
-            return 'ISRAEL'
-        if 'Belgique' in libelle:
-            return 'BELGIQUE'
-        if 'Egypte' in libelle:
-            return 'EGYPTE'
-        if 'Colombie' in libelle:
-            return 'COLOMBIE'
-        if 'Pays-Bas' in libelle:
-            return 'PAYS-BAS'
-        if 'hors Fr.' in libelle:
-            return 'HORS FR'
-        return ''
+        # si le libelle commence par jab, prendre le texte après _ en majuscule
+        if re.match(r'jab', libelle):
+            pos_underscore = libelle.find('_')
+            if pos_underscore != -1:
+                # si c'est kraj, on retourne PL
+                if 'kraj' in libelle:
+                    return 'PL'
+                else:
+                    return libelle[pos_underscore + 1:].upper()
+            else:
+                return ''
+        else:
+            if any(kw in libelle for kw in ['France', 'DOM','Sud-Est', 'Corse', 'Val de Loire', 'Roussillon','Martinique', 'Guadeloupe',
+                'Rhône-Alpes', 'Sud-Ouest', 'Alsace', 'Savoie','Centre-Ouest','Limousin','Deux-Sèvres','Nord-Picardie']):
+                return 'FRANCE'
+            if 'kraj' in libelle:
+                return 'PL'            
+            if 'Nouvelle-Zélande' in libelle:
+                return 'NZ'
+            if 'Grèce' in libelle:
+                return 'GRECE'
+            if 'Afrique' in libelle:
+                return 'AFRIQUE'
+            if 'Espagne' in libelle:
+                return 'ESPAGNE'
+            if 'Maroc' in libelle:
+                return 'MAROC'
+            if 'Portugal' in libelle:
+                return 'PORTUGAL'
+            if 'Amérique' in libelle:
+                return 'AMERIQUE'
+            if 'Allemagne' in libelle:
+                return 'ALLEMAGNE'
+            if 'Italie' in libelle:
+                return 'ITALIE'
+            if 'U.E.' in libelle:
+                return 'UE'
+            if 'Tunisie' in libelle:
+                return 'TUNISIE'
+            if 'Chili' in libelle:
+                return 'CHILI'
+            if 'Israël' in libelle:
+                return 'ISRAEL'
+            if 'Belgique' in libelle:
+                return 'BELGIQUE'
+            if 'Egypte' in libelle:
+                return 'EGYPTE'
+            if 'Colombie' in libelle:
+                return 'COLOMBIE'
+            if 'Pays-Bas' in libelle:
+                return 'PAYS-BAS'
+            if 'hors Fr.' in libelle:
+                return 'HORS FR'
+            return ''
 
     @staticmethod
     def extraire_categorie(libelle):

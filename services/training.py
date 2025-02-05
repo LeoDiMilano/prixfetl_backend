@@ -4,6 +4,7 @@ import os
 import warnings
 import numpy as np
 import pandas as pd
+from datetime import datetime
 import re
 import matplotlib.pyplot as plt
 import sys 
@@ -19,6 +20,7 @@ from dotenv import load_dotenv
 load_dotenv()  # charge .env
 DATA_RAW_DIR = os.getenv("DATA_RAW_DIR")
 DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
+DATA_OUTPUT_PROCESSED_DIR = os.getenv("DATA_OUTPUT_PROCESSED_DIR")
 
 warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
@@ -106,12 +108,17 @@ class PriceTrainer:
 
         return df_complet
 
-    def run_full_training(self, list_of_products):
+    def run_full_training(self, list_of_products, split_date=date(2024, 8, 5)):
         """
         Méthode globale qui :
           1) Prépare le dataset complet (2018->...)
           2) Lance l’entraînement pour chaque produit (colonne) de la liste `list_of_products`.
              (On suppose que dans le DataFrame, ces colonnes se nomment 'PRIX <produit>')
+          3) Utilise `split_date` pour séparer les ensembles d'entraînement et de test.
+        
+        Args:
+            list_of_products (list): Liste des produits pour lesquels entraîner les modèles.
+            split_date (datetime.date): Date de séparation entre le train set et le test set.
         """
         print("=== Démarrage de la préparation du dataset ===")
         self.df_complet = self.prepare_dataset()
@@ -123,8 +130,11 @@ class PriceTrainer:
             if col_name not in self.df_complet.columns:
                 print(f"[AVERTISSEMENT] La colonne '{col_name}' est introuvable dans df_complet. On ignore.")
                 continue
-            self.train_models_for_column(self.df_complet, col_name)
+            self.train_models_for_column(self.df_complet, col_name, split_date)
         print("\n=== Fin de l'entraînement des modèles ===")
+
+        # Export des features importances
+        self.export_feature_importances(list_of_products)
 
     def generate_shifted_targets(self, df, price_col):
         """
@@ -166,17 +176,25 @@ class PriceTrainer:
 
         return rfe, selected_features.tolist()
 
-    def train_models_for_column(self, df, price_col):
+    def train_models_for_column(self, df, price_col, split_date):
         """
         Entraîne (ou réentraîne) le modèle XGBoost pour un 'price_col' donné.
         Gère les horizons S+1, S+2, S+3.
+        
+        Args:
+            df (pd.DataFrame): Le DataFrame contenant les données complètes.
+            price_col (str): La colonne de prix pour laquelle entraîner le modèle.
+            split_date (datetime.date): Date de séparation entre le train set et le test set.
         """
+        # Convertir split_date en datetime64[ns]
+        split_date = pd.to_datetime(split_date)
+
         # 1) Ajout des colonnes cibles
         df = self.generate_shifted_targets(df, price_col)
 
         # 2) Split train/test
-        df_train = df[df['SAISON'].between(2018, 2023)].copy()
-        df_test = df[df['SAISON'] >= 2024].copy()
+        df_train = df[df['DATE_INTERROGATION'] < split_date].copy()
+        df_test = df[df['DATE_INTERROGATION'] >= split_date].copy()
 
         target_s1 = f"{price_col}_S+1"
         target_s2 = f"{price_col}_S+2"
@@ -295,31 +313,51 @@ class PriceTrainer:
             plt.savefig(f"tests/6_predictions_{sanitized_price_col}.png")
             plt.close()
 
+    def export_feature_importances(self, list_of_products):
+        """
+        Exporte les importances des features pour chaque modèle dans un fichier Excel.
+        """
+        feature_importances = {}
+
+        for prod_groupe in list_of_products:
+            col_name = f"PRIX {prod_groupe}"
+            if (col_name, 'S+1') in self.models:
+                model = self.models[(col_name, 'S+1')]
+                booster = model.get_booster()
+                importance = booster.get_score(importance_type='weight')
+                sorted_importance = sorted(importance.items(), key=lambda x: x[1], reverse=True)
+                feature_importances[prod_groupe] = sorted_importance
+
+        # Création du fichier Excel
+        output_dir = DATA_OUTPUT_PROCESSED_DIR
+        os.makedirs(output_dir, exist_ok=True)
+        output_path = os.path.join(output_dir, "feature_importances.xlsx")
+
+        with pd.ExcelWriter(output_path) as writer:
+            for product, importances in feature_importances.items():
+                # Nettoyer le nom du produit pour qu'il soit valide en tant que titre de feuille Excel
+                clean_product_name = re.sub(r'[\\/*?:\[\]]', '_', product)
+                # Mapper les indices des features aux noms des colonnes d'origine
+                feature_names = [self.selected_features_for_column[f"PRIX {product}"][int(f[1:])] for f, _ in importances]
+                df_importances = pd.DataFrame({
+                    'Feature': feature_names,
+                    'Importance': [imp for _, imp in importances]
+                })
+                df_importances.to_excel(writer, sheet_name=clean_product_name, index=False)
+
+        print(f"Feature importances exported to {output_path}")
+
     def variation_class(self, variation):
         """
-        Calcule la classe de variation basée sur la différence entre les prix réels et prévus.
-
-        Args:
-            variation (float): La différence entre le prix réel et le prix prévu.
-
-        Returns:
-            int: La classe de variation, selon les règles suivantes :
-                - variation > +0.03 => 2
-                - variation > +0.01 => 1
-                - -0.01 <= variation <= +0.01 => 0
-                - variation < -0.03 => -2
-                - sinon => -1
+        Classe une variation de prix en une des 5 classes : -2, -1, 0, 1, 2.
         """
-        if variation is None:
-            return None  # Si la variation est absente, on ne peut pas calculer de classe.
-
-        if variation > 0.03:
-            return 2
-        elif variation > 0.01:
-            return 1
-        elif -0.01 <= variation <= 0.01:
-            return 0
-        elif variation < -0.03:
+        if variation <= -0.03:
             return -2
-        else:
+        elif variation <= -0.01:
             return -1
+        elif variation <= 0.01:
+            return 0
+        elif variation <= 0.03:
+            return 1
+        else:
+            return 2

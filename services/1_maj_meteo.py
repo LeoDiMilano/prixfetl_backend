@@ -38,7 +38,7 @@ def get_date_range_for_year(annee):
 
     # Si la date de fin dépasse aujourd'hui, utiliser la date actuelle
     if date_fin >= today:
-        date_fin = (datetime.utcnow() - timedelta(days=1)).strftime('%Y-%m-%d')
+        date_fin = (datetime.utcnow() - timedelta(days=2)).strftime('%Y-%m-%d')
 
     return date_debut, date_fin
 
