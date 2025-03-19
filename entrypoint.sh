@@ -1,4 +1,9 @@
 #!/bin/bash
+export PATH=$PATH:/usr/sbin
+
+# Créer le fichier de log et définir les permissions (exécuté en tant que root)
+touch /var/log/cron.log.txt
+chmod 0644 /var/log/cron.log.txt
 
 # Démarrer le service cron
 service cron start

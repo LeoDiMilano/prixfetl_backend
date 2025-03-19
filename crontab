@@ -1,1 +1,1 @@
-11 16 * * 1 cd /app && /usr/local/bin/python -m main --cron >> /var/log/cron.log.txt 2>&1
+0 1 * * 1 cd /app && /usr/local/bin/python -m main --cron >> /var/log/cron.log.txt 2>&1

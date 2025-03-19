@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+gunicorn
+asyncpg
+psycopg2-binary
+aioftp
+python-dotenv
+python-multipart
+requests
+httpx
+Pillow

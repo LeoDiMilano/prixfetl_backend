@@ -17,3 +17,1167 @@ Traceback (most recent call last):
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'python'
 === 1) Mise à jour des données météo ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/main.py", line 149, in <module>
+    main()  # Exécute le pipeline de mise à jour
+    ^^^^^^
+  File "/app/main.py", line 106, in main
+    subprocess.run(["python", "/app/services/5_maj_COTATIONS_WIESCIROLNICZE.py"], check=True)    
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'python'
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/main.py", line 149, in <module>
+    main()  # Exécute le pipeline de mise à jour
+    ^^^^^^
+  File "/app/main.py", line 106, in main
+    subprocess.run(["python", "/app/services/5_maj_COTATIONS_WIESCIROLNICZE.py"], check=True)    
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'python'
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/main.py", line 149, in <module>
+    main()  # Exécute le pipeline de mise à jour
+    ^^^^^^
+  File "/app/main.py", line 106, in main
+    subprocess.run(["python", "/app/services/5_maj_COTATIONS_WIESCIROLNICZE.py"], check=True)    
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'python'
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+/usr/local/bin/python: No module named main
+
+[INFO] Mise à jour pour jablka-gala
+Scraping jablka-gala pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-gala/?data=2025-02-07...
+Insertion de 1 lignes.
+Scraping jablka-gala pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-gala/?data=2025-02-14...
+Insertion de 2 lignes.
+Scraping jablka-gala pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-gala/?data=2025-02-21...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka
+Scraping jablka pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka/?data=2025-02-07...
+Insertion de 2 lignes.
+Scraping jablka pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka/?data=2025-02-14...
+Insertion de 3 lignes.
+Scraping jablka pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka/?data=2025-02-21...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-golden-delicius
+Scraping jablka-golden-delicius pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-golden-delicius/?data=2025-02-07...
+Insertion de 1 lignes.
+Scraping jablka-golden-delicius pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-golden-delicius/?data=2025-02-14...
+Insertion de 1 lignes.
+Scraping jablka-golden-delicius pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-golden-delicius/?data=2025-02-21...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-jonagold
+Scraping jablka-jonagold pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagold/?data=2025-02-07...
+Insertion de 1 lignes.
+Scraping jablka-jonagold pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagold/?data=2025-02-14...
+Insertion de 1 lignes.
+Scraping jablka-jonagold pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagold/?data=2025-02-21...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-jonagored
+Scraping jablka-jonagored pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagored/?data=2025-02-07...
+Insertion de 1 lignes.
+Scraping jablka-jonagored pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagored/?data=2025-02-14...
+Insertion de 2 lignes.
+Scraping jablka-jonagored pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagored/?data=2025-02-21...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-ligol
+Scraping jablka-ligol pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-ligol/?data=2025-02-07...
+Insertion de 2 lignes.
+Scraping jablka-ligol pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-ligol/?data=2025-02-14...
+Insertion de 3 lignes.
+Scraping jablka-ligol pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-ligol/?data=2025-02-21...
+Insertion de 2 lignes.
+
+[INFO] Mise à jour pour jablka-szampion
+Scraping jablka-szampion pour 2025-02-07 (maj 2025-02-10)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-szampion/?data=2025-02-07...
+Insertion de 2 lignes.
+Scraping jablka-szampion pour 2025-02-14 (maj 2025-02-17)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-szampion/?data=2025-02-14...
+Insertion de 2 lignes.
+Scraping jablka-szampion pour 2025-02-21 (maj 2025-02-24)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-szampion/?data=2025-02-21...
+Insertion de 2 lignes.
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+Les indicateurs de disponibilité ont été ajoutés.
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Les 100 premières lignes ont été exportées vers /app/tests/df_complet_sample.xlsx
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+=== 5) Exécution du script data_preprocessing ===
+=== 6) Entraînement des modèles ===
+=== Démarrage de la préparation du dataset ===
+Étape 1 : Données brutes ajoutées
+Étape 2 : Données commerciales ajoutées
+Étape 3 : Prévisions annuelles ajoutées
+Étape 4 : Données météo ajoutées
+Les indicateurs de disponibilité ont été ajoutés.
+Étape 5 : Gestion des valeurs manquantes réalisées
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Étape 6 : Variations ajoutées
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Étape 7 : Indicateurs de vacances ajoutés
+=== Dataset prêt ===
+
+=== Début de l'entraînement des modèles pour la liste de produits ===
+
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.1034
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0825
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1052
+
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (187, 510), (187,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0202
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0344
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0281
+
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (115, 510), (115,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0363
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0431
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0344
+
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (119, 510), (119,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0768
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0769
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0566
+
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (233, 510), (233,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0321
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0462
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0715
+
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (140, 510), (140,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.0582
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.0707
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.0554
+
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (217, 510), (217,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0694
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.1158
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0948
+
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (234, 510), (234,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0813
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.1081
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1433
+
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (221, 510), (221,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0664
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0561
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0703
+
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0414
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0463
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0408
+
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.1722
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.1689
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.1980
+
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.1141
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0662
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0759
+
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (192, 510), (192,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0899
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0946
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1050
+
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (188, 510), (188,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0569
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0898
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0890
+
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (116, 510), (116,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0764
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0801
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0805/usr/local/lib/python3.11/site-packages/openpyxl/workbook/child.py:99: UserWarning: Title is more than 31 characters. Some applications may not be able to read the file
+  warnings.warn("Title is more than 31 characters. Some applications may not be able to read the file")
+
+
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (136, 510), (136,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0666
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0728
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0780
+
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (135, 510), (135,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0504
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0325
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0459
+
+=== Fin de l'entraînement des modèles ===
+Feature importances exported to /app/data/processed/feature_importances.xlsx
+=== 7) Inférence ===
+=== 8) Insertion des prévisions pour les lundis manquants ===
+Dernière date en base : 2025-02-03. Génération des prévisions jusqu'à 2025-03-02.
+Lundis à compléter : ['2025-02-03', '2025-02-10', '2025-02-17', '2025-02-24']
+Génération des prévisions pour le produit : EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17. Prévisions non générées.
+Prix actuel introuvable pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Prévisions non générées.
+Remplissage des prévisions terminé.
+=== 9) Mise à jour des prix réels (S+1, S+2, S+3) ===
+[update_real_prices] 295 lignes mises à jour.
+
+=== Fin du script principal ===
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 67124001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 69029001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 06088001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 13054001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 31069001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 33281001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 75114001, année 2025).
+Erreur lors de la requête (commande) : 401 {"code":"900901","message":"Invalid Credentials","description":"Invalid Credentials. Make sure you have provided the correct security credentials"}
+Erreur lors de la récupération des données météo (station 35281001, année 2025).
+
+=== Traitement du produit: pomme ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : pomme
+
+=== Traitement du produit: banane ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : banane
+
+=== Traitement du produit: orange ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : orange
+
+=== Traitement du produit: clémentine ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : clémentine
+
+=== Traitement du produit: kiwi ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : kiwi
+
+=== Traitement du produit: pêche ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : pêche
+
+=== Traitement du produit: nectarine ===
+[INFO] Mise à jour de 2025-02-04 à 2025-03-02
+[INFO] Accès au site pour le produit : nectarine
+[INFO] Accès à l’URL : https://agridata.ec.europa.eu/extensions/DashboardApples/ApplesTrade.html#
+[INFO] Attente pour que la page charge complètement...
+[INFO] Clique sur l'en-tête du menu déroulant...
+[INFO] Clique sur 'Data Explorer' dans le menu déroulant...
+[INFO] Passage dans l'iframe 'iFrm5'...
+[INFO] Clique sur 'Bulk Download ALL data'...
+[INFO] Suppression du fichier existant : /app/data/raw/EU_APPLES_trade_data_en.csv
+[INFO] Attente pour le téléchargement...
+[INFO] Fermeture du navigateur.
+
+[INFO] Mise à jour pour jablka-gala
+
+[INFO] Mise à jour pour jablka
+
+[INFO] Mise à jour pour jablka-golden-delicius
+
+[INFO] Mise à jour pour jablka-jonagold
+
+[INFO] Mise à jour pour jablka-jonagored
+
+[INFO] Mise à jour pour jablka-ligol
+
+[INFO] Mise à jour pour jablka-szampion
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+Les indicateurs de disponibilité ont été ajoutés.
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Les 100 premières lignes ont été exportées vers /app/tests/df_complet_sample.xlsx
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+=== 5) Exécution du script data_preprocessing ===
+=== 6) Entraînement des modèles ===
+=== Démarrage de la préparation du dataset ===
+Étape 1 : Données brutes ajoutées
+Étape 2 : Données commerciales ajoutées
+Étape 3 : Prévisions annuelles ajoutées
+Étape 4 : Données météo ajoutées
+Les indicateurs de disponibilité ont été ajoutés.
+Étape 5 : Gestion des valeurs manquantes réalisées
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Étape 6 : Variations ajoutées
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Étape 7 : Indicateurs de vacances ajoutés
+=== Dataset prêt ===
+
+=== Début de l'entraînement des modèles pour la liste de produits ===
+
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.1331
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0961
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1412
+
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (187, 510), (187,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0269
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0399
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0384
+
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (115, 510), (115,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0329
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0403
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0306
+
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (119, 510), (119,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0735
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0754
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0518
+
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (233, 510), (233,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0312
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0446
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0670
+
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (140, 510), (140,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.0626
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.0766
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.0556
+
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (217, 510), (217,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0703
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.1203
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0979
+
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (234, 510), (234,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0788
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.1064
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1424
+
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (221, 510), (221,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0629
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0544
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0671
+
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0465
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0506
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0459
+
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.1659
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.1601
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.1898
+
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.1209
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0615
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0742
+
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (192, 510), (192,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0855
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0888
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0996
+
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (188, 510), (188,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0523
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0829
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0825
+
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (116, 510), (116,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0894
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0889
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0854/usr/local/lib/python3.11/site-packages/openpyxl/workbook/child.py:99: UserWarning: Title is more than 31 characters. Some applications may not be able to read the file
+  warnings.warn("Title is more than 31 characters. Some applications may not be able to read the file")
+
+
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (136, 510), (136,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0631
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0697
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0765
+
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (135, 510), (135,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0522
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0338
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0472
+
+=== Fin de l'entraînement des modèles ===
+Feature importances exported to /app/data/processed/feature_importances.xlsx
+=== 7) Inférence ===
+=== 8) Insertion des prévisions pour les lundis manquants ===
+Dernière date en base : 2025-02-03. Génération des prévisions jusqu'à 2025-03-02.
+Lundis à compléter : ['2025-02-03', '2025-02-10', '2025-02-17', '2025-02-24']
+Génération des prévisions pour le produit : EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.15, S+2=1.22, S+3=1.13.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.15, S+2=1.21, S+3=1.13.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.13, S+2=1.21, S+3=1.17.
+Génération des prévisions pour le produit : EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.39, S+2=1.37, S+3=1.34.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.38, S+2=1.39, S+3=1.36.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.41, S+2=1.41, S+3=1.35.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.28, S+2=1.26, S+3=1.28.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.27, S+2=1.25, S+3=1.24.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.27, S+2=1.26, S+3=1.24.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.44, S+2=1.40, S+3=1.34.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.38, S+2=1.38, S+3=1.35.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.39, S+2=1.34, S+3=1.36.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-10.
+Prévisions insérées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-10 : S+1=0.93, S+2=0.93, S+3=0.98.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-17.
+Prévisions insérées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-17 : S+1=0.94, S+2=0.95, S+3=0.97.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-24.
+Prévisions insérées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-24 : S+1=0.93, S+2=0.96, S+3=0.94.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-10.
+Prévisions insérées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-10 : S+1=0.91, S+2=0.89, S+3=0.94.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-17.
+Prévisions insérées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-17 : S+1=0.90, S+2=0.88, S+3=0.91.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-24.
+Prévisions insérées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-24 : S+1=0.90, S+2=0.89, S+3=0.91.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10 : S+1=1.08, S+2=1.15, S+3=1.12.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17 : S+1=1.07, S+2=1.15, S+3=1.11.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24 : S+1=1.04, S+2=1.15, S+3=1.12.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.40, S+2=1.39, S+3=1.27.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.39, S+2=1.33, S+3=1.26.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.33, S+2=1.28, S+3=1.28.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.33, S+2=1.44, S+3=1.34.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.32, S+2=1.37, S+3=1.31.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.35, S+2=1.44, S+3=1.35.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-10.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-10 : S+1=0.97, S+2=0.99, S+3=0.99.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-17.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-17 : S+1=0.96, S+2=0.99, S+3=0.99.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-24.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-24 : S+1=0.96, S+2=0.97, S+3=0.98.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-10.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-10 : S+1=0.97, S+2=0.97, S+3=0.93.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-17.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-17 : S+1=0.92, S+2=0.96, S+3=0.93.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-24.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-24 : S+1=0.94, S+2=0.96, S+3=0.93.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10 : S+1=1.21, S+2=1.07, S+3=1.10.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17 : S+1=1.21, S+2=1.07, S+3=1.04.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24 : S+1=1.21, S+2=1.06, S+3=1.07.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.47, S+2=1.45, S+3=1.48.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.47, S+2=1.46, S+3=1.48.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.46, S+2=1.48, S+3=1.47.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.38, S+2=1.38, S+3=1.37.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.38, S+2=1.41, S+3=1.40.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.38, S+2=1.45, S+3=1.48.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-10 : S+1=1.11, S+2=1.09, S+3=1.06.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-17 : S+1=1.10, S+2=1.10, S+3=1.04.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24 : S+1=1.10, S+2=1.09, S+3=1.04.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.35, S+2=1.37, S+3=1.39.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.35, S+2=1.37, S+3=1.38.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.35, S+2=1.36, S+3=1.39.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-03. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-10 : S+1=1.40, S+2=1.37, S+3=1.40.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-17 : S+1=1.40, S+2=1.38, S+3=1.40.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24 : S+1=1.43, S+2=1.38, S+3=1.44.
+Remplissage des prévisions terminé.
+=== 9) Mise à jour des prix réels (S+1, S+2, S+3) ===
+[update_real_prices] 346 lignes mises à jour.
+
+=== Fin du script principal ===
+/usr/local/bin/python: No module named main
+Météo insérée/MAJ pour station 67124001, année 2025, direction NE
+Météo insérée/MAJ pour station 69029001, année 2025, direction NE
+Météo insérée/MAJ pour station 06088001, année 2025, direction SE
+Météo insérée/MAJ pour station 13054001, année 2025, direction SE
+Météo insérée/MAJ pour station 31069001, année 2025, direction SO
+Météo insérée/MAJ pour station 33281001, année 2025, direction SO
+Météo insérée/MAJ pour station 75114001, année 2025, direction NO
+Météo insérée/MAJ pour station 35281001, année 2025, direction NO
+
+=== Traitement du produit: pomme ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : pomme
+
+=== Traitement du produit: banane ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : banane
+
+=== Traitement du produit: orange ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : orange
+
+=== Traitement du produit: clémentine ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : clémentine
+
+=== Traitement du produit: kiwi ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : kiwi
+
+=== Traitement du produit: pêche ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : pêche
+
+=== Traitement du produit: nectarine ===
+[INFO] Mise à jour de 2025-02-25 à 2025-03-04
+[INFO] Accès au site pour le produit : nectarine
+[INFO] Accès à l’URL : https://agridata.ec.europa.eu/extensions/DashboardApples/ApplesTrade.html#
+[INFO] Attente pour que la page charge complètement...
+[INFO] Clique sur l'en-tête du menu déroulant...
+[INFO] Clique sur 'Data Explorer' dans le menu déroulant...
+[INFO] Passage dans l'iframe 'iFrm5'...
+[INFO] Clique sur 'Bulk Download ALL data'...
+[INFO] Suppression du fichier existant : /app/data/raw/EU_APPLES_trade_data_en.csv
+[INFO] Attente pour le téléchargement...
+[INFO] Fermeture du navigateur.
+
+[INFO] Mise à jour pour jablka-gala
+Scraping jablka-gala pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-gala/?data=2025-02-28...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka
+Scraping jablka pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka/?data=2025-02-28...
+Insertion de 2 lignes.
+
+[INFO] Mise à jour pour jablka-golden-delicius
+Scraping jablka-golden-delicius pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-golden-delicius/?data=2025-02-28...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-jonagold
+Scraping jablka-jonagold pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagold/?data=2025-02-28...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-jonagored
+Scraping jablka-jonagored pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-jonagored/?data=2025-02-28...
+Insertion de 1 lignes.
+
+[INFO] Mise à jour pour jablka-ligol
+Scraping jablka-ligol pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-ligol/?data=2025-02-28...
+Insertion de 3 lignes.
+
+[INFO] Mise à jour pour jablka-szampion
+Scraping jablka-szampion pour 2025-02-28 (maj 2025-03-03)
+Scraping https://wiescirolnicze.pl/ceny-rolnicze/jablka-szampion/?data=2025-02-28...
+Insertion de 3 lignes.
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+Les indicateurs de disponibilité ont été ajoutés.
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Les 100 premières lignes ont été exportées vers /app/tests/df_complet_sample.xlsx
+/app/services/data_preprocessing.py:243: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, index_col=None)  # Assure que 'DATE_INTERROGATION' n'est pas l'index
+/app/services/data_preprocessing.py:407: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df_meteo_global = pd.read_sql_query(query, conn)
+=== 1) Mise à jour des données météo ===
+=== 2) Mise à jour des cotations RNM ===
+=== 3) Mise à jour des données AGRIDATA (trade) ===
+=== 4) Mise à jour des données de Vacances - sauté ===
+=== 4b) Mise à jour des données de Pologne ===
+=== 5) Exécution du script data_preprocessing ===
+=== 6) Entraînement des modèles ===
+=== Démarrage de la préparation du dataset ===
+Étape 1 : Données brutes ajoutées
+Étape 2 : Données commerciales ajoutées
+Étape 3 : Prévisions annuelles ajoutées
+Étape 4 : Données météo ajoutées
+Les indicateurs de disponibilité ont été ajoutés.
+Étape 5 : Gestion des valeurs manquantes réalisées
+Les colonnes de variations ont été ajoutées et les valeurs nulles remplacées par 0, évitant la fragmentation.
+Étape 6 : Variations ajoutées
+Les indicateurs de vacances décalés S-1 et S+1 ont été ajoutés.
+Étape 7 : Indicateurs de vacances ajoutés
+=== Dataset prêt ===
+
+=== Début de l'entraînement des modèles pour la liste de produits ===
+
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.1499
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.1060
+[PRIX EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1561
+
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (187, 510), (187,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0267
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0398
+[PRIX EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0418
+
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (115, 510), (115,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0320
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0392
+[PRIX EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0296
+
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (119, 510), (119,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0713
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0723
+[PRIX EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0516
+
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (233, 510), (233,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0306
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0438
+[PRIX EXP POMME GALA FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0660
+
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (140, 510), (140,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.0622
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.0770
+[PRIX EXP POMME GALA FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.0544
+
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (217, 510), (217,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0736
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.1266
+[PRIX EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.1041
+
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (234, 510), (234,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0791
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.1062
+[PRIX EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.1427
+
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (221, 510), (221,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0621
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0535
+[PRIX EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0663
+
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+1 après RFE : 0.0461
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+2 : 0.0495
+[PRIX EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET] - RMSE test S+3 : 0.0449
+
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - Lancement RFE pour S+1...
+Taille des données après filtrage : (127, 510), (127,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+1 après RFE : 0.1646
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+2 : 0.1582
+[PRIX EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE] - RMSE test S+3 : 0.1877
+
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (137, 510), (137,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.1279
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0627
+[PRIX EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0767
+
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (192, 510), (192,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0842
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0872
+[PRIX EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0984
+
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (188, 510), (188,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0512
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0810
+[PRIX EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0809
+
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (116, 510), (116,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+1 après RFE : 0.0928
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+2 : 0.0922
+[PRIX EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG] - RMSE test S+3 : 0.0868/usr/local/lib/python3.11/site-packages/openpyxl/workbook/child.py:99: UserWarning: Title is more than 31 characters. Some applications may not be able to read the file
+  warnings.warn("Title is more than 31 characters. Some applications may not be able to read the file")
+
+
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (136, 510), (136,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0620
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0689
+[PRIX EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0761
+
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - Lancement RFE pour S+1...
+Taille des données après filtrage : (135, 510), (135,)
+Nombre de features avant optimisation : 510
+Nombre de features après optimisation : 20
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+1 après RFE : 0.0518
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+2 : 0.0330
+[PRIX EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG] - RMSE test S+3 : 0.0466
+
+=== Fin de l'entraînement des modèles ===
+Feature importances exported to /app/data/processed/feature_importances.xlsx
+=== 7) Inférence ===
+=== 8) Insertion des prévisions pour les lundis manquants ===
+Dernière date en base : 2025-02-24. Génération des prévisions jusqu'à 2025-03-04.
+Lundis à compléter : ['2025-02-24', '2025-03-03']
+Génération des prévisions pour le produit : EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME BRAEBURN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.17, S+2=1.21, S+3=1.19.
+Génération des prévisions pour le produit : EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME ELSTAR FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.39, S+2=1.41, S+3=1.35.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME FUJI FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.29, S+2=1.26, S+3=1.26.
+Génération des prévisions pour le produit : EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME FUJI FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.42, S+2=1.41, S+3=1.40.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-03-03.
+Prévisions insérées pour EXP POMME GALA FRANCE 115/150G CAT.I SACHET au 2025-03-03 : S+1=0.94, S+2=0.93, S+3=0.90.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-03-03.
+Prévisions insérées pour EXP POMME GALA FRANCE 136/200G CAT.I CAISSE au 2025-03-03 : S+1=0.90, S+2=0.89, S+3=0.95.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GALA FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03 : S+1=0.98, S+2=1.10, S+3=1.10.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GALA FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.40, S+2=1.36, S+3=1.31.
+Génération des prévisions pour le produit : EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GALA FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.34, S+2=1.44, S+3=1.39.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-03-03.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 115/150G CAT.I SACHET au 2025-03-03 : S+1=0.96, S+2=1.00, S+3=0.99.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-03-03.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 136/200G CAT.I CAISSE au 2025-03-03 : S+1=0.97, S+2=0.96, S+3=0.94.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03 : S+1=1.22, S+2=1.10, S+3=1.11.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.47, S+2=1.54, S+3=1.47.
+Génération des prévisions pour le produit : EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GOLDEN FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.39, S+2=1.42, S+3=1.48.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 150/180G CAT.I PLATEAU 2RG au 2025-03-03 : S+1=1.10, S+2=1.09, S+3=1.12.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 170/220G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.35, S+2=1.36, S+3=1.38.
+Génération des prévisions pour le produit : EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG
+Prévision déjà existante pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-02-24. Ignorée.
+[SUCCESS] Prévisions insérées/actualisées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03.
+Prévisions insérées pour EXP POMME GRANNY FRANCE 201/270G CAT.I PLATEAU 1RG au 2025-03-03 : S+1=1.41, S+2=1.38, S+3=1.40.
+Remplissage des prévisions terminé.
+=== 9) Mise à jour des prix réels (S+1, S+2, S+3) ===
+[update_real_prices] 363 lignes mises à jour.
+
+=== Fin du script principal ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/main.py", line 149, in <module>
+    main()  # Exécute le pipeline de mise à jour
+    ^^^^^^
+  File "/app/main.py", line 94, in main
+    subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
+  File "/usr/local/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'python'
+=== 1) Mise à jour des données météo ===
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/main.py", line 149, in <module>
+    main()  # Exécute le pipeline de mise à jour
+    ^^^^^^
+  File "/app/main.py", line 94, in main
+    subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
+  File "/usr/local/lib/python3.11/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.11/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'python'
+=== 1) Mise à jour des données météo ===

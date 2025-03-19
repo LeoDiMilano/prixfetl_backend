@@ -1,7 +1,5 @@
 # Ignorer la base de données
 IAFetL.db
-Dockerfile
-docker-compose.yml
 google-chrome-stable_current_amd64.deb
 
 # Ignorer d'autres fichiers/dossiers
@@ -16,3 +14,6 @@ logs/
 model_storage/
 archive/
 tests/
+.git/
+cron_logs/
+

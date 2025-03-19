@@ -91,16 +91,16 @@ DATA_OUTPUT_DIR = os.getenv("DATA_OUTPUT_DIR")
 def main():
     # Étape 1) Mise à jour des données brutes (ETL / ingestion)
     print("=== 1) Mise à jour des données météo ===")
-    #subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
+    subprocess.run(["python", "/app/services/1_maj_meteo.py"], check=True)
 
     print("=== 2) Mise à jour des cotations RNM ===")
-    #subprocess.run(["python", "/app/services/2_maj_COTATIONS_RNM_JOURNALIERES.py"], check=True)
+    subprocess.run(["python", "/app/services/2_maj_COTATIONS_RNM_JOURNALIERES.py"], check=True)
 
     print("=== 3) Mise à jour des données AGRIDATA (trade) ===")
-    #subprocess.run(["python", "/app/services/3_maj_AGRIDATA_EU_APPLES_trade_data.py"], check=True)
+    subprocess.run(["python", "/app/services/3_maj_AGRIDATA_EU_APPLES_trade_data.py"], check=True)
 
     print("=== 4) Mise à jour des données de Vacances - sauté ===")
-    #subprocess.run(["python", "/app/services/4_maj_VACANCES.py"], check=True)
+    subprocess.run(["python", "/app/services/4_maj_VACANCES.py"], check=True)
 
     print("=== 4b) Mise à jour des données de Pologne ===")
     subprocess.run(["python", "/app/services/5_maj_COTATIONS_WIESCIROLNICZE.py"], check=True)    
@@ -127,7 +127,7 @@ def main():
     # (A) Entraînement
     print("=== 6) Entraînement des modèles ===")
     trainer = PriceTrainer(db_config)
-    trainer.run_full_training(list_of_products, date(2024, 7, 29))
+    trainer.run_full_training(list_of_products, date(2024, 8, 5))
 
     print("=== 7) Inférence ===")
     # (B) Inférence
