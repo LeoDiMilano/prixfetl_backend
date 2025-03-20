@@ -12,7 +12,8 @@ if [ ! -d "/app/venv" ]; then
 fi
 
 # Activer l'environnement virtuel
-source /app/venv/bin/activate
+. /app/venv/bin/activate
+
 
 # Installer les dépendances si requirements.txt existe
 if [ -f "/app/requirements.txt" ]; then
@@ -36,16 +37,18 @@ echo "Configuration de cron..."
 crontab /app/crontab
 service cron start
 
-# Vérifier si le token API météo est valide
-echo "Vérification du token API météo..."
-python -c "from services.meteo_token_manager import ensure_valid_token; ensure_valid_token()"
+# Démarrer SSH
+service ssh start# Démarrer SSH
+service ssh start
 
 # Lancer l'application Flask en arrière-plan si demandé
-if [ "$1" = "api" ]; then
-    echo "Démarrage de l'API Flask..."
-    gunicorn --bind 0.0.0.0:5000 "main:create_app()" --daemon
-fi
+#if [ "$1" = "api" ]; then
+#    echo "Démarrage de l'API Flask..."
+#    gunicorn --bind 0.0.0.0:5000 "main:create_app()" --daemon
+#fi
 
 # Garder le conteneur en vie
 echo "Conteneur prêt et en attente..."
+gunicorn --bind 0.0.0.0:5000 "main:create_app()"
+
 tail -f /dev/null
